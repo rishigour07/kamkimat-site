@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --background: #0a0a0f;
+  --primary: #6c63ff;
+  --accent: #00d4ff;
+  --text-secondary: #a1a1aa;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(108, 99, 255, 0.2), transparent 30%),
+    radial-gradient(circle at top right, rgba(0, 212, 255, 0.12), transparent 24%),
+    radial-gradient(circle at bottom center, rgba(108, 99, 255, 0.14), transparent 32%),
+    var(--background);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 1), transparent 88%);
+  opacity: 0.18;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -2;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(108, 99, 255, 0.1), transparent 22%),
+    radial-gradient(circle at 80% 0%, rgba(0, 212, 255, 0.08), transparent 18%);
+  filter: blur(24px);
+}
+
+::selection {
+  background: rgba(108, 99, 255, 0.45);
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(108, 99, 255, 0.75), rgba(0, 212, 255, 0.75));
+  border-radius: 999px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans text-white antialiased;
+  }
+}
+
+@layer components {
+  .eyebrow {
+    @apply inline-flex items-center rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs font-semibold uppercase tracking-[0.26em] text-white/60;
+  }
+
+  .button-primary {
+    @apply border border-white/10 bg-[linear-gradient(135deg,#6C63FF_0%,#00D4FF_140%)] text-white;
+  }
+
+  .button-secondary {
+    @apply border border-white/10 bg-white/[0.04] text-white;
+  }
+
+  .button-ghost {
+    @apply border border-transparent bg-transparent text-white/70;
+  }
+
+  .metric-chip {
+    @apply rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm text-white/60;
+  }
+
+  .text-gradient {
+    @apply bg-[linear-gradient(90deg,#FFFFFF_0%,#B6F4FF_28%,#6C63FF_100%)] bg-clip-text text-transparent;
+  }
+}
+
+
