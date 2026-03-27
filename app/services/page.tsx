@@ -7,7 +7,7 @@ import { GlowCard } from "@/components/ui/glow-card";
 import { PageHero } from "@/components/ui/page-hero";
 import { SectionIntro } from "@/components/ui/section-intro";
 import { SectionShell } from "@/components/ui/section-shell";
-import { processSteps, services } from "@/lib/site";
+import { processSteps, services, siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -102,7 +102,7 @@ export default function ServicesPage() {
             </div>
             <div className="flex flex-wrap gap-4">
               <ButtonLink href="/contact">Book a Strategy Call</ButtonLink>
-              <ButtonLink href={`mailto:kamkimat@gmail.com`} variant="secondary">
+              <ButtonLink href={`mailto:${siteConfig.email}`} variant="secondary">
                 Email Kamkimat
               </ButtonLink>
             </div>

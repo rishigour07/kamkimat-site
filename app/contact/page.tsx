@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Mail } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 
 import { ContactForm } from "@/components/contact/contact-form";
 import { FadeIn } from "@/components/ui/fade-in";
@@ -7,6 +7,7 @@ import { GlowCard } from "@/components/ui/glow-card";
 import { PageHero } from "@/components/ui/page-hero";
 import { SectionIntro } from "@/components/ui/section-intro";
 import { SectionShell } from "@/components/ui/section-shell";
+import { businessContactItems } from "@/lib/constants/business";
 import { contactReasons, faqs, siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -16,6 +17,18 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
+  const getContactIcon = (label: string) => {
+    if (label === "Mobile") {
+      return Phone;
+    }
+
+    if (label === "Office") {
+      return MapPin;
+    }
+
+    return Mail;
+  };
+
   return (
     <>
       <PageHero
@@ -45,13 +58,32 @@ export default function ContactPage() {
             <FadeIn delay={0.06}>
               <GlowCard>
                 <div className="eyebrow">Direct Contact</div>
-                <a
-                  className="mt-6 inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white/75 transition duration-300 hover:border-white/[0.15] hover:text-white"
-                  href={`mailto:${siteConfig.email}`}
-                >
-                  <Mail className="h-4 w-4 text-accent" />
-                  {siteConfig.email}
-                </a>
+                <div className="mt-6 space-y-3">
+                  {businessContactItems.map((item) => {
+                    const Icon = getContactIcon(item.label);
+
+                    return item.href ? (
+                      <a
+                        className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white/75 transition duration-300 hover:border-white/[0.15] hover:text-white"
+                        href={item.href}
+                        key={item.label}
+                      >
+                        <Icon className="h-4 w-4 text-accent" />
+                        <span className="font-medium text-white">{item.label}:</span>
+                        {item.value}
+                      </a>
+                    ) : (
+                      <div
+                        className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white/75"
+                        key={item.label}
+                      >
+                        <Icon className="h-4 w-4 text-accent" />
+                        <span className="font-medium text-white">{item.label}:</span>
+                        {item.value}
+                      </div>
+                    );
+                  })}
+                </div>
                 <p className="mt-4 text-sm leading-7 text-white/60">
                   Ideal for project scopes, AI automation opportunities, web app builds, and consulting requests.
                 </p>

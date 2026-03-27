@@ -6,6 +6,7 @@ import { GlowCard } from "@/components/ui/glow-card";
 import { PageHero } from "@/components/ui/page-hero";
 import { SectionIntro } from "@/components/ui/section-intro";
 import { SectionShell } from "@/components/ui/section-shell";
+import { getVisibleFounders } from "@/lib/founders";
 import { aboutValues } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -14,7 +15,11 @@ export const metadata: Metadata = {
     "Learn how Kamkimat helps businesses automate, scale, and grow with premium AI-powered software systems."
 };
 
-export default function AboutPage() {
+export const dynamic = "force-dynamic";
+
+export default async function AboutPage() {
+  const founders = await getVisibleFounders();
+
   return (
     <>
       <PageHero
@@ -93,6 +98,47 @@ export default function AboutPage() {
           ))}
         </div>
       </SectionShell>
+
+      {founders.length > 0 ? (
+        <SectionShell>
+          <SectionIntro
+            align="center"
+            eyebrow="Founders"
+            title="Meet the leadership behind Kamkimat"
+            description="This section is now managed from the secure admin panel, so founder details can be updated without code changes."
+          />
+          <div className="mt-12 grid gap-6 lg:grid-cols-2">
+            {founders.map((founder, index) => (
+              <FadeIn delay={index * 0.06} key={founder.id}>
+                <GlowCard className="h-full">
+                  <div className="flex flex-col gap-6 sm:flex-row">
+                    {founder.photoData ? (
+                      <img
+                        alt={founder.name}
+                        className="h-32 w-32 rounded-3xl border border-white/10 object-cover"
+                        src={founder.photoData}
+                      />
+                    ) : (
+                      <div className="flex h-32 w-32 items-center justify-center rounded-3xl border border-dashed border-white/10 bg-white/[0.03] text-sm text-white/[0.45]">
+                        No photo
+                      </div>
+                    )}
+                    <div className="flex-1">
+                      <div className="text-sm font-semibold uppercase tracking-[0.22em] text-accent">
+                        {founder.role}
+                      </div>
+                      <h3 className="mt-3 text-2xl font-semibold text-white">{founder.name}</h3>
+                      <p className="mt-4 text-sm leading-7 text-white/[0.62]">
+                        {founder.description}
+                      </p>
+                    </div>
+                  </div>
+                </GlowCard>
+              </FadeIn>
+            ))}
+          </div>
+        </SectionShell>
+      ) : null}
 
       <SectionShell className="pb-24 sm:pb-28">
         <FadeIn>

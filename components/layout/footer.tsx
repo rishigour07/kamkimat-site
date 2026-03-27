@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { ArrowUpRight, Mail } from "lucide-react";
+import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
 
 import { ButtonLink } from "@/components/ui/button-link";
 import { LogoMark } from "@/components/ui/logo-mark";
+import { businessInfo } from "@/lib/constants/business";
 import { footerLinks, siteConfig } from "@/lib/site";
 
 export function Footer() {
@@ -38,13 +39,26 @@ export function Footer() {
           </div>
           <div>
             <div className="text-sm font-semibold uppercase tracking-[0.24em] text-white/[0.45]">Contact</div>
-            <a
-              className="mt-4 flex w-fit items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white/75 transition duration-300 hover:border-white/[0.15] hover:text-white"
-              href={`mailto:${siteConfig.email}`}
-            >
-              <Mail className="h-4 w-4 text-accent" />
-              {siteConfig.email}
-            </a>
+            <div className="mt-4 space-y-3">
+              <a
+                className="flex w-fit items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white/75 transition duration-300 hover:border-white/[0.15] hover:text-white"
+                href={`mailto:${siteConfig.email}`}
+              >
+                <Mail className="h-4 w-4 text-accent" />
+                {siteConfig.email}
+              </a>
+              <a
+                className="flex w-fit items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white/75 transition duration-300 hover:border-white/[0.15] hover:text-white"
+                href={`tel:${businessInfo.phone}`}
+              >
+                <Phone className="h-4 w-4 text-accent" />
+                {businessInfo.phone}
+              </a>
+              <div className="flex w-fit items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white/75">
+                <MapPin className="h-4 w-4 text-accent" />
+                {businessInfo.address}
+              </div>
+            </div>
             <p className="mt-5 text-sm leading-7 text-white/[0.45]">
               Premium software systems for teams that want better leverage, cleaner workflows, and stronger growth foundations.
             </p>

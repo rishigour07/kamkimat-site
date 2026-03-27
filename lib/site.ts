@@ -19,6 +19,8 @@ import {
   type LucideIcon
 } from "lucide-react";
 
+import { businessInfo } from "@/lib/constants/business";
+
 export type NavLink = {
   href: string;
   label: string;
@@ -62,8 +64,11 @@ export type ValueItem = {
 };
 
 export const siteConfig = {
-  name: "Kamkimat",
-  email: "kamkimat@gmail.com",
+  name: businessInfo.name,
+  email: businessInfo.email,
+  phone: businessInfo.phone,
+  address: businessInfo.address,
+  domain: businessInfo.domain,
   headline: "We Build AI Systems That Scale Your Business",
   description:
     "Kamkimat helps startups, founders, SMEs, and agencies automate, scale, and grow with AI-powered software solutions.",
@@ -383,4 +388,3 @@ export const contactReasons = [
     icon: Code2
   }
 ];
-

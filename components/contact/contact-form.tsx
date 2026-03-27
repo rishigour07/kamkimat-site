@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 type FormValues = {
   name: string;
   email: string;
+  phone: string;
   company: string;
   service: string;
   message: string;
@@ -19,10 +20,13 @@ type FormErrors = Partial<Record<keyof FormValues, string>>;
 const initialValues: FormValues = {
   name: "",
   email: "",
+  phone: "",
   company: "",
   service: "",
   message: ""
 };
+
+const phonePattern = /^[0-9+().\-\s]{7,20}$/;
 
 function validate(values: FormValues): FormErrors {
   const errors: FormErrors = {};
@@ -33,6 +37,10 @@ function validate(values: FormValues): FormErrors {
 
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) {
     errors.email = "Please enter a valid email address.";
+  }
+
+  if (values.phone.trim() && !phonePattern.test(values.phone.trim())) {
+    errors.phone = "Please enter a valid phone number.";
   }
 
   if (!values.service) {
@@ -50,8 +58,11 @@ export function ContactForm() {
   const [values, setValues] = useState<FormValues>(initialValues);
   const [errors, setErrors] = useState<FormErrors>({});
   const [touched, setTouched] = useState<Partial<Record<keyof FormValues, boolean>>>({});
+  const [feedback, setFeedback] = useState<{
+    type: "success" | "error";
+    message: string;
+  } | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleChange = (
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -69,11 +80,13 @@ export function ContactForm() {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setFeedback(null);
 
     const nextErrors = validate(values);
     setTouched({
       name: true,
       email: true,
+      phone: true,
       company: true,
       service: true,
       message: true
@@ -81,22 +94,49 @@ export function ContactForm() {
     setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length > 0) {
-      setIsSuccess(false);
       return;
     }
 
     setIsSubmitting(true);
 
-    const subject = encodeURIComponent(`New Kamkimat Inquiry: ${values.service}`);
-    const body = encodeURIComponent(
-      `Name: ${values.name}\nEmail: ${values.email}\nCompany: ${values.company || "Not provided"}\nService: ${values.service}\n\nMessage:\n${values.message}`
-    );
+    void (async () => {
+      try {
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(values)
+        });
 
-    window.location.href = `mailto:${siteConfig.email}?subject=${subject}&body=${body}`;
-    setIsSubmitting(false);
-    setIsSuccess(true);
-    setValues(initialValues);
-    setTouched({});
+        const payload = (await response.json()) as {
+          error?: string;
+          ok?: boolean;
+        };
+
+        if (!response.ok) {
+          setFeedback({
+            type: "error",
+            message: payload.error ?? "Unable to submit your inquiry right now."
+          });
+          return;
+        }
+
+        setFeedback({
+          type: "success",
+          message: `Your inquiry has been submitted successfully. We will get back to you at ${values.email}.`
+        });
+        setValues(initialValues);
+        setTouched({});
+      } catch {
+        setFeedback({
+          type: "error",
+          message: `Something went wrong while submitting. You can still reach us at ${siteConfig.email}.`
+        });
+      } finally {
+        setIsSubmitting(false);
+      }
+    })();
   };
 
   const inputClassName = (field: keyof FormValues) =>
@@ -161,30 +201,49 @@ export function ContactForm() {
           />
         </div>
         <div>
-          <label className="mb-2 block text-sm font-medium text-white/75" htmlFor="service">
-            Service
+          <label className="mb-2 block text-sm font-medium text-white/75" htmlFor="phone">
+            Phone
           </label>
-          <select
-            className={inputClassName("service")}
-            id="service"
-            name="service"
-            onBlur={() => handleBlur("service")}
+          <input
+            className={inputClassName("phone")}
+            id="phone"
+            name="phone"
+            onBlur={() => handleBlur("phone")}
             onChange={handleChange}
-            value={values.service}
-          >
-            <option className="bg-[#10111a]" value="">
-              Select a service
-            </option>
-            {contactServices.map((service) => (
-              <option className="bg-[#10111a]" key={service} value={service}>
-                {service}
-              </option>
-            ))}
-          </select>
-          {touched.service && errors.service ? (
-            <p className="mt-2 text-sm text-rose-300">{errors.service}</p>
+            placeholder="+91 91112 56684"
+            type="tel"
+            value={values.phone}
+          />
+          {touched.phone && errors.phone ? (
+            <p className="mt-2 text-sm text-rose-300">{errors.phone}</p>
           ) : null}
         </div>
+      </div>
+
+      <div>
+        <label className="mb-2 block text-sm font-medium text-white/75" htmlFor="service">
+          Service
+        </label>
+        <select
+          className={inputClassName("service")}
+          id="service"
+          name="service"
+          onBlur={() => handleBlur("service")}
+          onChange={handleChange}
+          value={values.service}
+        >
+          <option className="bg-[#10111a]" value="">
+            Select a service
+          </option>
+          {contactServices.map((service) => (
+            <option className="bg-[#10111a]" key={service} value={service}>
+              {service}
+            </option>
+          ))}
+        </select>
+        {touched.service && errors.service ? (
+          <p className="mt-2 text-sm text-rose-300">{errors.service}</p>
+        ) : null}
       </div>
 
       <div>
@@ -208,20 +267,26 @@ export function ContactForm() {
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="text-sm leading-6 text-white/[0.48]">
-          Submitting opens your email app with the completed inquiry so you can send it instantly.
+          Submissions are stored securely so your inquiry does not depend on a local email client.
         </div>
         <button
           className="button-primary inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold shadow-glow transition duration-300 hover:translate-y-[-1px] hover:shadow-glow-accent disabled:cursor-not-allowed disabled:opacity-60"
           disabled={isSubmitting}
           type="submit"
         >
-          {isSubmitting ? "Preparing..." : "Send Inquiry"}
+          {isSubmitting ? "Sending..." : "Send Inquiry"}
         </button>
       </div>
 
-      {isSuccess ? (
+      {feedback?.type === "success" ? (
         <div className="rounded-2xl border border-emerald-400/25 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-200">
-          Your inquiry is ready to send to {siteConfig.email}.
+          {feedback.message}
+        </div>
+      ) : null}
+
+      {feedback?.type === "error" ? (
+        <div className="rounded-2xl border border-rose-400/25 bg-rose-400/10 px-4 py-3 text-sm text-rose-200">
+          {feedback.message}
         </div>
       ) : null}
     </form>
