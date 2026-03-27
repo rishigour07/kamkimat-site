@@ -144,14 +144,23 @@ export async function getAllFounders() {
 }
 
 export async function getVisibleFounders() {
-  const rows = await prisma.founder.findMany({
-    where: {
-      isVisible: true
-    },
-    orderBy: [{ updatedAt: "desc" }, { createdAt: "desc" }]
-  });
+  try {
+    const rows = await prisma.founder.findMany({
+      where: {
+        isVisible: true
+      },
+      orderBy: [{ updatedAt: "desc" }, { createdAt: "desc" }]
+    });
 
-  return rows.map((row) => mapFounder(row)!).filter(Boolean);
+    if (!rows.length) {
+      return [];
+    }
+
+    return rows.map((row) => mapFounder(row)!).filter(Boolean);
+  } catch (error) {
+    console.error("Failed to load visible founders for the public About page.", error);
+    return [];
+  }
 }
 
 export async function getFounderById(id: string) {
