@@ -15,12 +15,12 @@ GITHUB_OWNER="your-github-username-or-org"
 GITHUB_REPO="your-repo-name"
 GITHUB_BRANCH="main"
 CONTENT_FILE_PATH="data/content.json"
-SMTP_HOST="smtp.gmail.com"
-SMTP_PORT="465"
-SMTP_SECURE="true"
-SMTP_USER="kamkimat67@gmail.com"
-SMTP_PASS="replace-this-with-your-gmail-app-password"
-SMTP_FROM="Kamkimat <kamkimat67@gmail.com>"
+EMAILJS_SERVICE_ID="service_xxxxxxx"
+EMAILJS_TEMPLATE_ID="template_xxxxxxx"
+EMAILJS_CHATBOT_TEMPLATE_ID="template_chatbot_xxxxxxx"
+EMAILJS_PUBLIC_KEY="replace-with-emailjs-public-key"
+EMAILJS_PRIVATE_KEY="replace-with-emailjs-private-key"
+EMAILJS_TO_EMAIL="kamkimat67@gmail.com"
 USE_OPENAI="false"
 ```
 
@@ -48,8 +48,33 @@ Open `http://localhost:3000`.
 
 - The contact form posts to `/api/contact`
 - The chatbot lead form posts to `/api/chatbot/lead`
-- Both send email with Nodemailer through Gmail SMTP
+- Both contact and chatbot lead notifications use EmailJS
 - All submissions go to `kamkimat67@gmail.com`
+
+### EmailJS template params for inquiry form
+
+Configure your EmailJS template to accept these params:
+
+- `to_email`
+- `name`
+- `email`
+- `phone`
+- `company`
+- `service`
+- `message`
+- `submitted_at`
+
+For chatbot lead template (`EMAILJS_CHATBOT_TEMPLATE_ID`, optional), include:
+
+- `to_email`
+- `lead_type`
+- `service`
+- `name`
+- `email`
+- `phone`
+- `project_requirement`
+- `context`
+- `submitted_at`
 
 ## Production build
 
@@ -66,7 +91,7 @@ npm run start
 - Tailwind CSS
 - Framer Motion
 - Lucide React
-- Nodemailer
+- EmailJS
 - Secure admin auth with HTTP-only session cookies
 - GitHub-backed content persistence
 - Local `data/content.json` fallback content
