@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { sendContactEmail } from "@/lib/mailer";
+import { EmailDeliveryError, sendContactEmail } from "@/lib/mailer";
 import { validateContactPayload } from "@/lib/validation";
 
 export async function POST(request: Request) {
@@ -19,6 +19,10 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     console.error("Contact submission failed", error);
+
+    if (error instanceof EmailDeliveryError) {
+      return NextResponse.json({ error: error.exposeMessage }, { status: error.status });
+    }
 
     return NextResponse.json(
       { error: "Unable to submit your inquiry right now." },

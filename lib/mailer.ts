@@ -1,6 +1,18 @@
 const CONTACT_DESTINATION = "kamkimat67@gmail.com";
 const EMAILJS_ENDPOINT = "https://api.emailjs.com/api/v1.0/email/send";
 
+export class EmailDeliveryError extends Error {
+  status: number;
+  exposeMessage: string;
+
+  constructor(exposeMessage: string, status = 500) {
+    super(exposeMessage);
+    this.name = "EmailDeliveryError";
+    this.status = status;
+    this.exposeMessage = exposeMessage;
+  }
+}
+
 function getRequiredEnv(
   name:
     | "EMAILJS_SERVICE_ID"
@@ -11,7 +23,7 @@ function getRequiredEnv(
   const value = process.env[name]?.trim();
 
   if (!value) {
-    throw new Error(`${name} is not configured.`);
+    throw new EmailDeliveryError(`${name} is missing in server environment.`, 500);
   }
 
   return value;
@@ -30,26 +42,33 @@ function getEmailJsConfig() {
 async function sendEmailJs(templateId: string, templateParams: Record<string, string>) {
   const config = getEmailJsConfig();
 
-  const response = await fetch(EMAILJS_ENDPOINT, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      service_id: config.serviceId,
-      template_id: templateId,
-      user_id: config.publicKey,
-      accessToken: config.privateKey,
-      template_params: {
-        to_email: config.toEmail,
-        ...templateParams
-      }
-    })
-  });
+  let response: Response;
+
+  try {
+    response = await fetch(EMAILJS_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        service_id: config.serviceId,
+        template_id: templateId,
+        user_id: config.publicKey,
+        accessToken: config.privateKey,
+        template_params: {
+          to_email: config.toEmail,
+          ...templateParams
+        }
+      })
+    });
+  } catch {
+    throw new EmailDeliveryError("Could not reach EmailJS service.", 502);
+  }
 
   if (!response.ok) {
-    const body = await response.text();
-    throw new Error(`EmailJS request failed (${response.status}): ${body}`);
+    const body = (await response.text()).trim();
+    const reason = body ? ` ${body}` : "";
+    throw new EmailDeliveryError(`EmailJS rejected the request.${reason}`.slice(0, 500), 502);
   }
 
 }

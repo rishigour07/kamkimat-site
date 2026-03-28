@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 import { inferLeadService } from "@/lib/chatbot";
 import { inferLeadType, inferUserMessageCount } from "@/lib/lead-scoring";
-import { sendChatbotLeadEmail } from "@/lib/mailer";
+import { EmailDeliveryError, sendChatbotLeadEmail } from "@/lib/mailer";
 import { validateChatbotLeadPayload } from "@/lib/validation";
 
 export const dynamic = "force-dynamic";
@@ -42,6 +42,10 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     console.error("Chatbot lead capture failed", error);
+
+    if (error instanceof EmailDeliveryError) {
+      return NextResponse.json({ error: error.exposeMessage }, { status: error.status });
+    }
 
     return NextResponse.json(
       { error: "Unable to save the chatbot lead right now." },
