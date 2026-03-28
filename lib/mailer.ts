@@ -1,8 +1,13 @@
-import nodemailer from "nodemailer";
-
 const CONTACT_DESTINATION = "kamkimat67@gmail.com";
+const EMAILJS_ENDPOINT = "https://api.emailjs.com/api/v1.0/email/send";
 
-function getRequiredEnv(name: "SMTP_USER" | "SMTP_PASS") {
+function getRequiredEnv(
+  name:
+    | "EMAILJS_SERVICE_ID"
+    | "EMAILJS_TEMPLATE_ID"
+    | "EMAILJS_PUBLIC_KEY"
+    | "EMAILJS_PRIVATE_KEY"
+) {
   const value = process.env[name]?.trim();
 
   if (!value) {
@@ -12,20 +17,41 @@ function getRequiredEnv(name: "SMTP_USER" | "SMTP_PASS") {
   return value;
 }
 
-function getTransporter() {
-  return nodemailer.createTransport({
-    host: process.env.SMTP_HOST?.trim() || "smtp.gmail.com",
-    port: Number(process.env.SMTP_PORT?.trim() || 465),
-    secure: (process.env.SMTP_SECURE?.trim() || "true").toLowerCase() !== "false",
-    auth: {
-      user: getRequiredEnv("SMTP_USER"),
-      pass: getRequiredEnv("SMTP_PASS")
-    }
-  });
+function getEmailJsConfig() {
+  return {
+    serviceId: getRequiredEnv("EMAILJS_SERVICE_ID"),
+    templateId: getRequiredEnv("EMAILJS_TEMPLATE_ID"),
+    publicKey: getRequiredEnv("EMAILJS_PUBLIC_KEY"),
+    privateKey: getRequiredEnv("EMAILJS_PRIVATE_KEY"),
+    toEmail: process.env.EMAILJS_TO_EMAIL?.trim() || CONTACT_DESTINATION
+  };
 }
 
-function getFromAddress() {
-  return process.env.SMTP_FROM?.trim() || getRequiredEnv("SMTP_USER");
+async function sendEmailJs(templateId: string, templateParams: Record<string, string>) {
+  const config = getEmailJsConfig();
+
+  const response = await fetch(EMAILJS_ENDPOINT, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      service_id: config.serviceId,
+      template_id: templateId,
+      user_id: config.publicKey,
+      accessToken: config.privateKey,
+      template_params: {
+        to_email: config.toEmail,
+        ...templateParams
+      }
+    })
+  });
+
+  if (!response.ok) {
+    const body = await response.text();
+    throw new Error(`EmailJS request failed (${response.status}): ${body}`);
+  }
+
 }
 
 export async function sendContactEmail(input: {
@@ -36,35 +62,16 @@ export async function sendContactEmail(input: {
   service: string;
   message: string;
 }) {
-  const transporter = getTransporter();
+  const config = getEmailJsConfig();
 
-  await transporter.sendMail({
-    from: getFromAddress(),
-    to: CONTACT_DESTINATION,
-    replyTo: input.email,
-    subject: `Kamkimat Website Inquiry: ${input.service}`,
-    text: [
-      "New contact form submission from Kamkimat website.",
-      "",
-      `Name: ${input.name}`,
-      `Email: ${input.email}`,
-      `Phone: ${input.phone || "Not provided"}`,
-      `Company: ${input.company || "Not provided"}`,
-      `Service: ${input.service}`,
-      "",
-      "Message:",
-      input.message
-    ].join("\n"),
-    html: `
-      <h2>New contact form submission</h2>
-      <p><strong>Name:</strong> ${input.name}</p>
-      <p><strong>Email:</strong> ${input.email}</p>
-      <p><strong>Phone:</strong> ${input.phone || "Not provided"}</p>
-      <p><strong>Company:</strong> ${input.company || "Not provided"}</p>
-      <p><strong>Service:</strong> ${input.service}</p>
-      <p><strong>Message:</strong></p>
-      <p>${input.message.replace(/\n/g, "<br />")}</p>
-    `
+  await sendEmailJs(config.templateId, {
+    name: input.name,
+    email: input.email,
+    phone: input.phone || "Not provided",
+    company: input.company || "Not provided",
+    service: input.service,
+    message: input.message,
+    submitted_at: new Date().toISOString()
   });
 }
 
@@ -77,39 +84,18 @@ export async function sendChatbotLeadEmail(input: {
   leadType: string;
   context?: string | null;
 }) {
-  const transporter = getTransporter();
+  const config = getEmailJsConfig();
+  const chatbotTemplateId =
+    process.env.EMAILJS_CHATBOT_TEMPLATE_ID?.trim() || config.templateId;
 
-  await transporter.sendMail({
-    from: getFromAddress(),
-    to: CONTACT_DESTINATION,
-    replyTo: input.email,
-    subject: `Kamkimat Chatbot Lead: ${input.leadType.toUpperCase()} - ${input.service}`,
-    text: [
-      "New chatbot lead from Kamkimat website.",
-      "",
-      `Lead type: ${input.leadType}`,
-      `Service: ${input.service}`,
-      `Name: ${input.name}`,
-      `Email: ${input.email}`,
-      `Phone: ${input.phone || "Not provided"}`,
-      "",
-      "Project requirement:",
-      input.projectRequirement,
-      "",
-      "Conversation context:",
-      input.context || "Not provided"
-    ].join("\n"),
-    html: `
-      <h2>New chatbot lead</h2>
-      <p><strong>Lead type:</strong> ${input.leadType}</p>
-      <p><strong>Service:</strong> ${input.service}</p>
-      <p><strong>Name:</strong> ${input.name}</p>
-      <p><strong>Email:</strong> ${input.email}</p>
-      <p><strong>Phone:</strong> ${input.phone || "Not provided"}</p>
-      <p><strong>Project requirement:</strong></p>
-      <p>${input.projectRequirement.replace(/\n/g, "<br />")}</p>
-      <p><strong>Conversation context:</strong></p>
-      <p>${(input.context || "Not provided").replace(/\n/g, "<br />")}</p>
-    `
+  await sendEmailJs(chatbotTemplateId, {
+    lead_type: input.leadType,
+    service: input.service,
+    name: input.name,
+    email: input.email,
+    phone: input.phone || "Not provided",
+    project_requirement: input.projectRequirement,
+    context: input.context || "Not provided",
+    submitted_at: new Date().toISOString()
   });
 }
