@@ -2,7 +2,6 @@
 
 import type { FormEvent } from "react";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 
 import type { EditableFounderItem, EditableSiteContent } from "@/lib/content";
 
@@ -32,7 +31,6 @@ function createFounderDraft(): EditableFounderItem {
 }
 
 export function ContentEditor({ initialContent }: ContentEditorProps) {
-  const router = useRouter();
   const [content, setContent] = useState<EditableSiteContent>(initialContent);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -156,11 +154,8 @@ export function ContentEditor({ initialContent }: ContentEditorProps) {
     reader.readAsDataURL(file);
   };
 
-  const removeFounderPhoto = (index: number) => {
-    updateFounderField(index, "photoData", null);
-  };
-
-  const saveContent = async () => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     setFeedback(null);
     setError(null);
     setIsSaving(true);
@@ -186,20 +181,12 @@ export function ContentEditor({ initialContent }: ContentEditorProps) {
       }
 
       setContent(payload.content);
-      router.refresh();
       setFeedback("Content saved successfully.");
-      return true;
     } catch {
       setError("Unable to save content right now.");
-      return false;
     } finally {
       setIsSaving(false);
     }
-  };
-
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    await saveContent();
   };
 
   const inputClassName =
@@ -439,33 +426,19 @@ export function ContentEditor({ initialContent }: ContentEditorProps) {
 
       <section className="space-y-4">
         <div className="flex items-center justify-between gap-4">
-          <div>
-            <div className="eyebrow">Founders</div>
-            <p className="mt-3 text-sm text-white/[0.62]">
-              Founder changes are shown on the About page after you save.
-            </p>
-          </div>
-          <div className="flex flex-wrap items-center gap-3">
-            <button
-              className="button-secondary inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-semibold"
-              onClick={addFounder}
-              type="button"
-            >
-              Add Founder
-            </button>
-            <button
-              className="button-primary inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-semibold shadow-glow transition duration-300 hover:translate-y-[-1px] hover:shadow-glow-accent disabled:cursor-not-allowed disabled:opacity-60"
-              disabled={isSaving}
-              type="submit"
-            >
-              {isSaving ? "Saving..." : "Save Founders"}
-            </button>
-          </div>
+          <div className="eyebrow">Founders</div>
+          <button
+            className="button-secondary inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-semibold"
+            onClick={addFounder}
+            type="button"
+          >
+            Add Founder
+          </button>
         </div>
 
         {content.founders.length === 0 ? (
           <div className="rounded-[24px] border border-dashed border-white/10 bg-white/[0.03] px-5 py-6 text-sm text-white/[0.6]">
-            No founders added yet. Click Add Founder, then Save Founders to show the founder section on the About page.
+            No founders added yet. Click `Add Founder` to show the founder section on the About page.
           </div>
         ) : (
           <div className="grid gap-4">
@@ -523,20 +496,11 @@ export function ContentEditor({ initialContent }: ContentEditorProps) {
 
                   <div className="lg:w-40">
                     {founder.photoData ? (
-                      <>
-                        <img
-                          alt={founder.name || `Founder ${index + 1}`}
-                          className="h-32 w-32 rounded-3xl border border-white/10 object-cover"
-                          src={founder.photoData}
-                        />
-                        <button
-                          className="mt-3 inline-flex items-center justify-center rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-sm font-semibold text-white transition duration-300 hover:bg-white/[0.1]"
-                          onClick={() => removeFounderPhoto(index)}
-                          type="button"
-                        >
-                          Remove Photo
-                        </button>
-                      </>
+                      <img
+                        alt={founder.name || `Founder ${index + 1}`}
+                        className="h-32 w-32 rounded-3xl border border-white/10 object-cover"
+                        src={founder.photoData}
+                      />
                     ) : (
                       <div className="flex h-32 w-32 items-center justify-center rounded-3xl border border-dashed border-white/10 bg-white/[0.03] text-sm text-white/[0.45]">
                         No photo
