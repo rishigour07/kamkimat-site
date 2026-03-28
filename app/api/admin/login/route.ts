@@ -16,12 +16,26 @@ export async function POST(request: Request) {
 
     const username = body.username?.trim() || body.email?.trim() || "";
     const password = body.password ?? "";
-    const expectedUsername = process.env.ADMIN_USERNAME?.trim();
+    const expectedUsername =
+      process.env.ADMIN_USERNAME?.trim() || process.env.ADMIN_EMAIL?.trim();
     const expectedPassword = process.env.ADMIN_PASSWORD;
+    const sessionSecret = process.env.ADMIN_SESSION_SECRET?.trim();
 
     if (!expectedUsername || !expectedPassword) {
       return NextResponse.json(
-        { error: "Admin credentials are not configured." },
+        {
+          error:
+            "Admin credentials are not configured. Set ADMIN_USERNAME (or ADMIN_EMAIL) and ADMIN_PASSWORD."
+        },
+        { status: 503 }
+      );
+    }
+
+    if (!sessionSecret) {
+      return NextResponse.json(
+        {
+          error: "Admin session is not configured. Set ADMIN_SESSION_SECRET."
+        },
         { status: 503 }
       );
     }
