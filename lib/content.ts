@@ -16,6 +16,15 @@ export type EditableValueItem = {
   description: string;
 };
 
+export type EditableFounderItem = {
+  id: string;
+  name: string;
+  role: string;
+  description: string;
+  photoData: string | null;
+  isVisible: boolean;
+};
+
 export type EditableSiteContent = {
   contact: {
     email: string;
@@ -48,6 +57,7 @@ export type EditableSiteContent = {
     pageDescription: string;
     items: EditableServiceItem[];
   };
+  founders: EditableFounderItem[];
 };
 
 const DEFAULT_VALUES: EditableValueItem[] = [
@@ -158,7 +168,8 @@ export const DEFAULT_CONTENT: EditableSiteContent = {
     pageDescription:
       "Kamkimat helps founders, SMEs, and agencies build software systems that look premium, automate intelligently, and stay aligned with business growth.",
     items: DEFAULT_SERVICES
-  }
+  },
+  founders: []
 };
 
 export const LOCAL_CONTENT_FILE_PATH = path.join(process.cwd(), "data", "content.json");
@@ -203,6 +214,33 @@ function normalizeServiceItem(value: unknown, fallback: EditableServiceItem) {
     title: normalizeString(input.title, fallback.title),
     description: normalizeString(input.description, fallback.description),
     points: normalizeStringArray(input.points, fallback.points)
+  };
+}
+
+function normalizeFounderItem(value: unknown, index: number): EditableFounderItem {
+  if (!value || typeof value !== "object") {
+    return {
+      id: `founder-${index + 1}`,
+      name: "",
+      role: "",
+      description: "",
+      photoData: null,
+      isVisible: true
+    };
+  }
+
+  const input = value as Record<string, unknown>;
+
+  return {
+    id: normalizeString(input.id, `founder-${index + 1}`),
+    name: normalizeString(input.name, ""),
+    role: normalizeString(input.role, ""),
+    description: normalizeString(input.description, ""),
+    photoData:
+      typeof input.photoData === "string" && input.photoData.trim()
+        ? input.photoData.trim()
+        : null,
+    isVisible: typeof input.isVisible === "boolean" ? input.isVisible : true
   };
 }
 
@@ -279,7 +317,10 @@ function normalizeContent(value: unknown): EditableSiteContent {
             )
           )
         : DEFAULT_CONTENT.services.items
-    }
+    },
+    founders: Array.isArray(input.founders)
+      ? input.founders.map((item, index) => normalizeFounderItem(item, index))
+      : DEFAULT_CONTENT.founders
   };
 }
 

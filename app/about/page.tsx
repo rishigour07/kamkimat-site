@@ -100,7 +100,7 @@ export default async function AboutPage() {
             align="center"
             eyebrow="Founders"
             title="Meet the leadership behind Kamkimat"
-            description="Founder details are kept as static site content."
+            description="Founder details are managed from the Kamkimat admin panel."
           />
           <div className="mt-12 grid gap-6 lg:grid-cols-2">
             {founders.map((founder, index) => (

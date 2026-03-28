@@ -1,23 +1,21 @@
-export type FounderRecord = {
-  id: string;
-  name: string;
-  role: string;
-  description: string;
-  photoData: string | null;
-  isVisible: boolean;
-};
+import { getEditableSiteContent, type EditableFounderItem } from "@/lib/content";
 
-const STATIC_FOUNDERS: FounderRecord[] = [];
+export type FounderRecord = EditableFounderItem;
 
 export async function getAllFounders() {
-  return STATIC_FOUNDERS;
+  const content = await getEditableSiteContent();
+  return content.founders;
 }
 
 export async function getVisibleFounders() {
-  return STATIC_FOUNDERS.filter((founder) => founder.isVisible);
+  const content = await getEditableSiteContent();
+  return content.founders.filter(
+    (founder) => founder.isVisible && founder.name && founder.role && founder.description
+  );
 }
 
 export async function getFounderById(id: string) {
-  return STATIC_FOUNDERS.find((founder) => founder.id === id) ?? null;
+  const content = await getEditableSiteContent();
+  return content.founders.find((founder) => founder.id === id) ?? null;
 }
 

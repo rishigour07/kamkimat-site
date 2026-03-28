@@ -3,7 +3,7 @@
 import type { FormEvent } from "react";
 import { useEffect, useState } from "react";
 
-import type { EditableSiteContent } from "@/lib/content";
+import type { EditableFounderItem, EditableSiteContent } from "@/lib/content";
 
 type ContentEditorProps = {
   initialContent: EditableSiteContent;
@@ -14,6 +14,20 @@ function linesToArray(value: string) {
     .split("\n")
     .map((item) => item.trim())
     .filter(Boolean);
+}
+
+function createFounderDraft(): EditableFounderItem {
+  return {
+    id:
+      typeof globalThis.crypto?.randomUUID === "function"
+        ? globalThis.crypto.randomUUID()
+        : `founder-${Date.now()}`,
+    name: "",
+    role: "",
+    description: "",
+    photoData: null,
+    isVisible: true
+  };
 }
 
 export function ContentEditor({ initialContent }: ContentEditorProps) {
@@ -98,6 +112,46 @@ export function ContentEditor({ initialContent }: ContentEditorProps) {
         )
       }
     }));
+  };
+
+  const updateFounderField = (
+    index: number,
+    field: keyof EditableFounderItem,
+    value: string | boolean | null
+  ) => {
+    setContent((current) => ({
+      ...current,
+      founders: current.founders.map((founder, founderIndex) =>
+        founderIndex === index ? { ...founder, [field]: value } : founder
+      )
+    }));
+  };
+
+  const addFounder = () => {
+    setContent((current) => ({
+      ...current,
+      founders: [...current.founders, createFounderDraft()]
+    }));
+  };
+
+  const removeFounder = (index: number) => {
+    setContent((current) => ({
+      ...current,
+      founders: current.founders.filter((_, founderIndex) => founderIndex !== index)
+    }));
+  };
+
+  const handleFounderPhotoChange = (index: number, file: File | null) => {
+    if (!file) {
+      updateFounderField(index, "photoData", null);
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      updateFounderField(index, "photoData", typeof reader.result === "string" ? reader.result : null);
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -368,6 +422,104 @@ export function ContentEditor({ initialContent }: ContentEditorProps) {
             </div>
           ))}
         </div>
+      </section>
+
+      <section className="space-y-4">
+        <div className="flex items-center justify-between gap-4">
+          <div className="eyebrow">Founders</div>
+          <button
+            className="button-secondary inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-semibold"
+            onClick={addFounder}
+            type="button"
+          >
+            Add Founder
+          </button>
+        </div>
+
+        {content.founders.length === 0 ? (
+          <div className="rounded-[24px] border border-dashed border-white/10 bg-white/[0.03] px-5 py-6 text-sm text-white/[0.6]">
+            No founders added yet. Click `Add Founder` to show the founder section on the About page.
+          </div>
+        ) : (
+          <div className="grid gap-4">
+            {content.founders.map((founder, index) => (
+              <div
+                className="rounded-[24px] border border-white/10 bg-white/[0.03] p-4"
+                key={founder.id}
+              >
+                <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                  <div className="flex-1 space-y-3">
+                    <div className="text-sm font-semibold text-white">Founder {index + 1}</div>
+                    <input
+                      className={inputClassName}
+                      onChange={(event) => updateFounderField(index, "name", event.target.value)}
+                      placeholder="Founder name"
+                      value={founder.name}
+                    />
+                    <input
+                      className={inputClassName}
+                      onChange={(event) => updateFounderField(index, "role", event.target.value)}
+                      placeholder="Founder role"
+                      value={founder.role}
+                    />
+                    <textarea
+                      className={inputClassName}
+                      onChange={(event) =>
+                        updateFounderField(index, "description", event.target.value)
+                      }
+                      placeholder="Founder description"
+                      rows={4}
+                      value={founder.description}
+                    />
+                    <div className="grid gap-3 sm:grid-cols-[auto_1fr] sm:items-center">
+                      <label className="inline-flex items-center gap-2 text-sm text-white/[0.7]">
+                        <input
+                          checked={founder.isVisible}
+                          className="h-4 w-4 rounded border-white/20 bg-white/[0.06]"
+                          onChange={(event) =>
+                            updateFounderField(index, "isVisible", event.target.checked)
+                          }
+                          type="checkbox"
+                        />
+                        Visible on About page
+                      </label>
+                      <input
+                        accept="image/*"
+                        className="w-full rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white file:mr-4 file:rounded-full file:border-0 file:bg-white/10 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-white/15"
+                        onChange={(event) =>
+                          handleFounderPhotoChange(index, event.target.files?.[0] ?? null)
+                        }
+                        type="file"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="lg:w-40">
+                    {founder.photoData ? (
+                      <img
+                        alt={founder.name || `Founder ${index + 1}`}
+                        className="h-32 w-32 rounded-3xl border border-white/10 object-cover"
+                        src={founder.photoData}
+                      />
+                    ) : (
+                      <div className="flex h-32 w-32 items-center justify-center rounded-3xl border border-dashed border-white/10 bg-white/[0.03] text-sm text-white/[0.45]">
+                        No photo
+                      </div>
+                    )}
+
+                    <button
+                      className="mt-4 inline-flex items-center justify-center rounded-full border border-rose-400/25 bg-rose-400/10 px-4 py-2 text-sm font-semibold text-rose-200 transition duration-300 hover:bg-rose-400/15"
+                      onClick={() => removeFounder(index)}
+                      type="button"
+                    >
+                      Remove Founder
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </section>
 
       {feedback ? (
