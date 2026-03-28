@@ -7,7 +7,7 @@ import { PageHero } from "@/components/ui/page-hero";
 import { SectionIntro } from "@/components/ui/section-intro";
 import { SectionShell } from "@/components/ui/section-shell";
 import { getVisibleFounders } from "@/lib/founders";
-import { aboutValues } from "@/lib/site";
+import { getSiteContentData } from "@/lib/site-content";
 
 export const metadata: Metadata = {
   title: "About",
@@ -18,16 +18,17 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function AboutPage() {
+  const { aboutValues, content } = await getSiteContentData();
   const founders = await getVisibleFounders();
 
   return (
     <>
       <PageHero
-        description="Kamkimat exists to turn AI and software into practical leverage for ambitious teams. We combine product thinking, premium design, and sharp execution to build systems that create real operating value."
+        description={content.about.heroDescription}
         eyebrow="About Kamkimat"
         primaryCta={{ href: "/contact", label: "Start a Conversation" }}
         secondaryCta={{ href: "/services", label: "Explore Services" }}
-        title="A premium software partner for businesses that want systems, not noise"
+        title={content.about.heroTitle}
       />
 
       <SectionShell>
@@ -35,18 +36,18 @@ export default async function AboutPage() {
           <FadeIn>
             <GlowCard className="h-full">
               <div className="eyebrow">Mission</div>
-              <h2 className="mt-6 text-3xl font-semibold text-white">Build software that creates leverage</h2>
+              <h2 className="mt-6 text-3xl font-semibold text-white">{content.about.missionTitle}</h2>
               <p className="mt-4 text-base leading-8 text-white/[0.65]">
-                Our mission is to help businesses move faster and operate smarter with high-value software systems, premium interfaces, and AI workflows that create measurable momentum.
+                {content.about.missionDescription}
               </p>
             </GlowCard>
           </FadeIn>
           <FadeIn delay={0.08}>
             <GlowCard className="h-full">
               <div className="eyebrow">Vision</div>
-              <h2 className="mt-6 text-3xl font-semibold text-white">Make advanced technology feel usable and powerful</h2>
+              <h2 className="mt-6 text-3xl font-semibold text-white">{content.about.visionTitle}</h2>
               <p className="mt-4 text-base leading-8 text-white/[0.65]">
-                We believe the future belongs to businesses that combine strong product foundations with intelligent automation, clean workflows, and digital experiences customers trust.
+                {content.about.visionDescription}
               </p>
             </GlowCard>
           </FadeIn>
@@ -58,22 +59,16 @@ export default async function AboutPage() {
           <FadeIn>
             <SectionIntro
               eyebrow="Story"
-              title="Kamkimat was built to bridge strategy, product quality, and AI execution"
-              description="Too many teams get forced to choose between smart consulting, clean design, and solid engineering. Kamkimat brings those disciplines together so businesses can build faster with more confidence."
+              title={content.about.storyTitle}
+              description={content.about.storyDescription}
             />
           </FadeIn>
           <FadeIn delay={0.08}>
             <GlowCard>
               <div className="space-y-5 text-base leading-8 text-white/[0.65]">
-                <p>
-                  We started from a simple idea: AI and software should do more than look modern. They should reduce friction, improve decisions, and create systems that support real growth.
-                </p>
-                <p>
-                  That means approaching every project through a product lens, caring deeply about interface quality, and designing workflow logic that actually fits the team using it.
-                </p>
-                <p>
-                  Whether we&apos;re building custom SaaS, AI automations, web applications, or strategic roadmaps, the goal stays the same: create premium software that compounds value over time.
-                </p>
+                {content.about.storyParagraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
               </div>
             </GlowCard>
           </FadeIn>
@@ -105,7 +100,7 @@ export default async function AboutPage() {
             align="center"
             eyebrow="Founders"
             title="Meet the leadership behind Kamkimat"
-            description="This section is now managed from the secure admin panel, so founder details can be updated without code changes."
+            description="Founder details are kept as static site content."
           />
           <div className="mt-12 grid gap-6 lg:grid-cols-2">
             {founders.map((founder, index) => (

@@ -3,10 +3,12 @@ import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
 
 import { ButtonLink } from "@/components/ui/button-link";
 import { LogoMark } from "@/components/ui/logo-mark";
-import { businessInfo } from "@/lib/constants/business";
-import { footerLinks, siteConfig } from "@/lib/site";
+import { footerLinks } from "@/lib/site";
+import { getSiteContentData } from "@/lib/site-content";
 
-export function Footer() {
+export async function Footer() {
+  const { siteConfig } = await getSiteContentData();
+
   return (
     <footer className="border-t border-white/10">
       <div className="mx-auto grid max-w-7xl gap-10 px-6 py-12 lg:grid-cols-[1.2fr_0.8fr] lg:px-8">
@@ -49,14 +51,14 @@ export function Footer() {
               </a>
               <a
                 className="flex w-fit items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white/75 transition duration-300 hover:border-white/[0.15] hover:text-white"
-                href={`tel:${businessInfo.phone}`}
+                href={`tel:${siteConfig.phone}`}
               >
                 <Phone className="h-4 w-4 text-accent" />
-                {businessInfo.phone}
+                {siteConfig.phone}
               </a>
               <div className="flex w-fit items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white/75">
                 <MapPin className="h-4 w-4 text-accent" />
-                {businessInfo.address}
+                {siteConfig.address}
               </div>
             </div>
             <p className="mt-5 text-sm leading-7 text-white/[0.45]">

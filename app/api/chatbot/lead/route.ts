@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 
-import { createContactSubmission } from "@/lib/database";
 import { inferLeadService } from "@/lib/chatbot";
 import { inferLeadType, inferUserMessageCount } from "@/lib/lead-scoring";
+import { sendChatbotLeadEmail } from "@/lib/mailer";
 import { validateChatbotLeadPayload } from "@/lib/validation";
 
 export const dynamic = "force-dynamic";
@@ -26,20 +26,18 @@ export async function POST(request: Request) {
       texts: [result.data.projectRequirement, result.data.context]
     });
 
-    const submission = await createContactSubmission({
+    await sendChatbotLeadEmail({
       name: result.data.name,
       email: result.data.email,
       phone: result.data.phone,
-      company: null,
+      projectRequirement: result.data.projectRequirement,
+      context: result.data.context,
       service,
-      message: result.data.projectRequirement,
-      source: "chatbot",
       leadType
     });
 
     return NextResponse.json({
       ok: true,
-      submissionId: submission.id,
       leadType
     });
   } catch (error) {

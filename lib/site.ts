@@ -19,8 +19,6 @@ import {
   type LucideIcon
 } from "lucide-react";
 
-import { businessInfo } from "@/lib/constants/business";
-
 export type NavLink = {
   href: string;
   label: string;
@@ -63,12 +61,30 @@ export type ValueItem = {
   description: string;
 };
 
+const serviceIcons: LucideIcon[] = [
+  LayoutDashboard,
+  BrainCircuit,
+  Bot,
+  Code2,
+  Workflow,
+  Lightbulb
+];
+
+export function mapServicesWithIcons(
+  items: Array<{ title: string; description: string; points: string[] }>
+) {
+  return items.map((service, index) => ({
+    ...service,
+    icon: serviceIcons[index] ?? LayoutDashboard
+  }));
+}
+
 export const siteConfig = {
-  name: businessInfo.name,
-  email: businessInfo.email,
-  phone: businessInfo.phone,
-  address: businessInfo.address,
-  domain: businessInfo.domain,
+  name: "Kamkimat",
+  email: "kamkimat67@gmail.com",
+  phone: "9111256684",
+  address: "78 Vijay Nagar, Indore",
+  domain: "www.kamkimat.com",
   headline: "We Build AI Systems That Scale Your Business",
   description:
     "Kamkimat helps startups, founders, SMEs, and agencies automate, scale, and grow with AI-powered software solutions.",
@@ -102,51 +118,6 @@ export const stats = [
     value: "100%",
     label: "Custom execution",
     detail: "No templates, no off-the-shelf shortcuts, no generic builds."
-  }
-];
-
-export const services: Service[] = [
-  {
-    title: "Custom SaaS Development",
-    description:
-      "Launch product-grade SaaS platforms with secure architecture, premium UX, and scalable foundations.",
-    points: ["Multi-tenant platforms", "Admin dashboards", "Billing-ready product flows"],
-    icon: LayoutDashboard
-  },
-  {
-    title: "AI Automation",
-    description:
-      "Replace repetitive manual work with AI-driven automations that reduce friction across your business.",
-    points: ["Lead routing", "Ops automations", "Internal AI assistants"],
-    icon: BrainCircuit
-  },
-  {
-    title: "AI Chatbots",
-    description:
-      "Deploy branded AI chatbots for support, qualification, onboarding, and knowledge access.",
-    points: ["Website assistants", "Sales qualification", "Support deflection"],
-    icon: Bot
-  },
-  {
-    title: "Web App Development",
-    description:
-      "Build fast, conversion-focused web applications that feel premium and stay maintainable.",
-    points: ["Customer portals", "Internal tools", "Modern frontend systems"],
-    icon: Code2
-  },
-  {
-    title: "Workflow Integration",
-    description:
-      "Connect the tools your team already uses so data, decisions, and tasks flow without manual handoffs.",
-    points: ["CRM integration", "API orchestration", "Cross-tool syncing"],
-    icon: Workflow
-  },
-  {
-    title: "Software Consulting",
-    description:
-      "Get strategic clarity on what to build, how to prioritize it, and how to make AI create actual business value.",
-    points: ["Technical roadmaps", "Product scoping", "Architecture guidance"],
-    icon: Lightbulb
   }
 ];
 
@@ -274,29 +245,6 @@ export const faqs: FAQItem[] = [
   }
 ];
 
-export const aboutValues: ValueItem[] = [
-  {
-    title: "Clarity over noise",
-    description:
-      "We cut through AI hype and focus on systems that solve real operational and growth problems."
-  },
-  {
-    title: "Speed with rigor",
-    description:
-      "Fast delivery matters, but not at the expense of architecture, UX quality, or future maintainability."
-  },
-  {
-    title: "Automation with intent",
-    description:
-      "We automate the work that slows teams down and design around the decisions that still need humans."
-  },
-  {
-    title: "Partnership mindset",
-    description:
-      "We work best as a high-context partner that helps teams make better product and technology decisions."
-  }
-];
-
 export const caseStudies: CaseStudy[] = [
   {
     title: "AI Lead Intake System",
@@ -337,14 +285,6 @@ export const caseStudies: CaseStudy[] = [
       "Better access to operational knowledge"
     ]
   }
-];
-
-export const contactServices = services.map((service) => service.title);
-
-export const contactHighlights = [
-  "Premium SaaS product builds",
-  "AI automation and chatbot strategy",
-  "Workflow integration and consulting"
 ];
 
 export const footerLinks = [

@@ -1,5 +1,3 @@
-import { businessInfo } from "@/lib/constants/business";
-
 export const whatsappFollowUpMessage =
   "Hi, I came from Kamkimat website. I want to discuss my project.";
 
@@ -13,12 +11,13 @@ function normalizeWhatsappNumber(phone: string) {
   return digitsOnly;
 }
 
-export const kamkimatWhatsappNumber = normalizeWhatsappNumber(businessInfo.phone);
-
-export function getKamkimatWhatsappLink(message = whatsappFollowUpMessage) {
+export function getKamkimatWhatsappLink(
+  message = whatsappFollowUpMessage,
+  phone = "9111256684"
+) {
   const query = new URLSearchParams({
     text: message
   });
 
-  return `https://wa.me/${kamkimatWhatsappNumber}?${query.toString()}`;
+  return `https://wa.me/${normalizeWhatsappNumber(phone)}?${query.toString()}`;
 }

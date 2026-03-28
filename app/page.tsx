@@ -14,14 +14,12 @@ import { GlowCard } from "@/components/ui/glow-card";
 import { HeroVisual } from "@/components/ui/hero-visual";
 import { SectionIntro } from "@/components/ui/section-intro";
 import { SectionShell } from "@/components/ui/section-shell";
+import { getSiteContentData } from "@/lib/site-content";
 import {
   aiSolutions,
-  contactHighlights,
   faqs,
   insightPoints,
   processSteps,
-  services,
-  siteConfig,
   stats,
   testimonialThemes,
   whyKamkimat
@@ -51,7 +49,11 @@ function IconCard({ icon: Icon, title, description }: IconCardProps) {
   );
 }
 
-export default function HomePage() {
+export const dynamic = "force-dynamic";
+
+export default async function HomePage() {
+  const { content, services, siteConfig } = await getSiteContentData();
+
   return (
     <>
       <SectionShell className="pt-32 sm:pt-36 lg:pt-40">
@@ -60,13 +62,13 @@ export default function HomePage() {
             <div className="max-w-3xl">
               <div className="eyebrow">
                 <Sparkles className="mr-2 h-4 w-4 text-accent" />
-                Premium AI Systems For Modern Teams
+                {content.home.eyebrow}
               </div>
               <h1 className="mt-8 text-5xl font-semibold leading-[1.02] tracking-tight text-white sm:text-6xl">
-                We Build <span className="text-gradient">AI Systems</span> That Scale Your Business
+                {content.home.headline}
               </h1>
               <p className="mt-6 max-w-2xl text-lg leading-8 text-white/[0.68] sm:text-xl">
-                From custom SaaS to AI automation, Kamkimat helps you move faster, reduce costs, and grow smarter.
+                {content.home.description}
               </p>
               <div className="mt-8 flex flex-wrap gap-4">
                 <ButtonLink href="/contact">Get Started</ButtonLink>
@@ -75,7 +77,7 @@ export default function HomePage() {
                 </ButtonLink>
               </div>
               <div className="mt-8 flex flex-wrap gap-3">
-                {contactHighlights.map((highlight) => (
+                {content.home.highlights.map((highlight) => (
                   <div className="metric-chip" key={highlight}>
                     {highlight}
                   </div>
@@ -268,10 +270,10 @@ export default function HomePage() {
               <div className="max-w-3xl">
                 <div className="eyebrow">Ready To Build</div>
                 <h2 className="mt-5 text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl">
-                  Build a sharper system for growth, automation, and product execution
+                  {content.home.ctaTitle}
                 </h2>
                 <p className="mt-4 text-base leading-8 text-white/[0.68] sm:text-lg">
-                  If your business needs software that looks premium, works hard, and scales with confidence, let&apos;s map the next move.
+                  {content.home.ctaDescription}
                 </p>
               </div>
               <div className="flex flex-wrap gap-4">

@@ -3,7 +3,6 @@
 import type { ChangeEvent, FormEvent } from "react";
 import { useState } from "react";
 
-import { contactServices, siteConfig } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 type FormValues = {
@@ -27,6 +26,11 @@ const initialValues: FormValues = {
 };
 
 const phonePattern = /^[0-9+().\-\s]{7,20}$/;
+
+type ContactFormProps = {
+  contactEmail: string;
+  serviceOptions: string[];
+};
 
 function validate(values: FormValues): FormErrors {
   const errors: FormErrors = {};
@@ -54,7 +58,7 @@ function validate(values: FormValues): FormErrors {
   return errors;
 }
 
-export function ContactForm() {
+export function ContactForm({ contactEmail, serviceOptions }: ContactFormProps) {
   const [values, setValues] = useState<FormValues>(initialValues);
   const [errors, setErrors] = useState<FormErrors>({});
   const [touched, setTouched] = useState<Partial<Record<keyof FormValues, boolean>>>({});
@@ -131,7 +135,7 @@ export function ContactForm() {
       } catch {
         setFeedback({
           type: "error",
-          message: `Something went wrong while submitting. You can still reach us at ${siteConfig.email}.`
+          message: `Something went wrong while submitting. You can still reach us at ${contactEmail}.`
         });
       } finally {
         setIsSubmitting(false);
@@ -235,7 +239,7 @@ export function ContactForm() {
           <option className="bg-[#10111a]" value="">
             Select a service
           </option>
-          {contactServices.map((service) => (
+          {serviceOptions.map((service) => (
             <option className="bg-[#10111a]" key={service} value={service}>
               {service}
             </option>
@@ -267,7 +271,7 @@ export function ContactForm() {
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="text-sm leading-6 text-white/[0.48]">
-          Submissions are stored securely so your inquiry does not depend on a local email client.
+          Your inquiry is sent directly to the Kamkimat inbox through secure server-side email delivery.
         </div>
         <button
           className="button-primary inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold shadow-glow transition duration-300 hover:translate-y-[-1px] hover:shadow-glow-accent disabled:cursor-not-allowed disabled:opacity-60"

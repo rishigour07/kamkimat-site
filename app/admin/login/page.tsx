@@ -13,7 +13,7 @@ export default function AdminLoginPage() {
   return (
     <>
       <PageHero
-        description="Secure admin access for managing founder content inside the live Kamkimat website."
+        description="Secure admin access for editing homepage, services, about content, and contact details."
         eyebrow="Admin Access"
         title="Sign in to the Kamkimat admin panel"
       />

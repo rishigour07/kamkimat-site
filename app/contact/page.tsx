@@ -7,8 +7,8 @@ import { GlowCard } from "@/components/ui/glow-card";
 import { PageHero } from "@/components/ui/page-hero";
 import { SectionIntro } from "@/components/ui/section-intro";
 import { SectionShell } from "@/components/ui/section-shell";
-import { businessContactItems } from "@/lib/constants/business";
-import { contactReasons, faqs, siteConfig } from "@/lib/site";
+import { contactReasons, faqs } from "@/lib/site";
+import { getSiteContentData } from "@/lib/site-content";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -16,7 +16,11 @@ export const metadata: Metadata = {
     "Get in touch with Kamkimat for custom SaaS development, AI automation, chatbot projects, workflow integration, and software consulting."
 };
 
-export default function ContactPage() {
+export const dynamic = "force-dynamic";
+
+export default async function ContactPage() {
+  const { businessContactItems, contactServices, siteConfig } = await getSiteContentData();
+
   const getContactIcon = (label: string) => {
     if (label === "Mobile") {
       return Phone;
@@ -49,7 +53,7 @@ export default function ContactPage() {
                 description="A few details are enough to start. We&apos;ll use them to understand the problem, the service fit, and the best next step."
               />
               <div className="mt-8">
-                <ContactForm />
+                <ContactForm contactEmail={siteConfig.email} serviceOptions={contactServices} />
               </div>
             </GlowCard>
           </FadeIn>

@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 export function AdminLoginForm() {
   const router = useRouter();
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
@@ -21,7 +21,7 @@ export function AdminLoginForm() {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        email,
+        username,
         password
       })
     });
@@ -45,17 +45,16 @@ export function AdminLoginForm() {
   return (
     <form className="space-y-5" onSubmit={handleSubmit}>
       <div>
-        <label className="mb-2 block text-sm font-medium text-white/75" htmlFor="admin-email">
-          Admin email
+        <label className="mb-2 block text-sm font-medium text-white/75" htmlFor="admin-username">
+          Admin username
         </label>
         <input
           className="w-full rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white outline-none transition duration-300 placeholder:text-white/[0.28] focus:border-accent/40"
-          id="admin-email"
-          name="email"
-          onChange={(event) => setEmail(event.target.value)}
-          placeholder="admin@kamkimat.com"
-          type="email"
-          value={email}
+          id="admin-username"
+          name="username"
+          onChange={(event) => setUsername(event.target.value)}
+          placeholder="kamkimat-admin"
+          value={username}
         />
       </div>
 

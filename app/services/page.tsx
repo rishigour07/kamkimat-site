@@ -7,7 +7,8 @@ import { GlowCard } from "@/components/ui/glow-card";
 import { PageHero } from "@/components/ui/page-hero";
 import { SectionIntro } from "@/components/ui/section-intro";
 import { SectionShell } from "@/components/ui/section-shell";
-import { processSteps, services, siteConfig } from "@/lib/site";
+import { processSteps } from "@/lib/site";
+import { getSiteContentData } from "@/lib/site-content";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -15,15 +16,19 @@ export const metadata: Metadata = {
     "Explore Kamkimat services across custom SaaS development, AI automation, chatbots, web apps, workflow integration, and consulting."
 };
 
-export default function ServicesPage() {
+export const dynamic = "force-dynamic";
+
+export default async function ServicesPage() {
+  const { content, services, siteConfig } = await getSiteContentData();
+
   return (
     <>
       <PageHero
-        description="Kamkimat helps founders, SMEs, and agencies build software systems that look premium, automate intelligently, and stay aligned with business growth."
+        description={content.services.pageDescription}
         eyebrow="Services"
         primaryCta={{ href: "/contact", label: "Discuss Your Project" }}
         secondaryCta={{ href: "/portfolio", label: "See Solution Examples" }}
-        title="Services designed to turn AI and software into real operating leverage"
+        title={content.services.pageTitle}
       />
 
       <SectionShell>

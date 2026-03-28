@@ -5,6 +5,7 @@ import { ChatWidget } from "@/components/chatbot/chat-widget";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import { siteConfig } from "@/lib/site";
+import { getSiteContentData } from "@/lib/site-content";
 
 import "./globals.css";
 
@@ -43,11 +44,13 @@ export const metadata: Metadata = {
   }
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { siteConfig: liveSiteConfig } = await getSiteContentData();
+
   return (
     <html lang="en">
       <body className={`${inter.variable} bg-background`}>
@@ -56,7 +59,7 @@ export default function RootLayout({
           <Navbar />
           <main>{children}</main>
           <Footer />
-          <ChatWidget />
+          <ChatWidget contactPhone={liveSiteConfig.phone} />
         </div>
       </body>
     </html>

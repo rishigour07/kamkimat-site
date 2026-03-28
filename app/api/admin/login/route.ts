@@ -1,4 +1,3 @@
-import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 
 import {
@@ -6,46 +5,44 @@ import {
   adminSessionCookieOptions,
   createAdminSession
 } from "@/lib/auth";
-import { getAdminUserByEmail } from "@/lib/database";
 
 export async function POST(request: Request) {
   try {
     const body = (await request.json()) as {
+      username?: string;
       email?: string;
       password?: string;
     };
 
-    const email = body.email?.trim().toLowerCase();
+    const username = body.username?.trim() || body.email?.trim() || "";
     const password = body.password ?? "";
+    const expectedUsername = process.env.ADMIN_USERNAME?.trim();
+    const expectedPassword = process.env.ADMIN_PASSWORD;
 
-    if (!email || !password) {
+    if (!expectedUsername || !expectedPassword) {
       return NextResponse.json(
-        { error: "Email and password are required." },
+        { error: "Admin credentials are not configured." },
+        { status: 503 }
+      );
+    }
+
+    if (!username || !password) {
+      return NextResponse.json(
+        { error: "Username and password are required." },
         { status: 400 }
       );
     }
 
-    const adminUser = await getAdminUserByEmail(email);
-
-    if (!adminUser) {
+    if (username !== expectedUsername || password !== expectedPassword) {
       return NextResponse.json(
-        { error: "Invalid email or password." },
-        { status: 401 }
-      );
-    }
-
-    const isValidPassword = await bcrypt.compare(password, adminUser.passwordHash);
-
-    if (!isValidPassword) {
-      return NextResponse.json(
-        { error: "Invalid email or password." },
+        { error: "Invalid username or password." },
         { status: 401 }
       );
     }
 
     const sessionToken = await createAdminSession({
-      sub: adminUser.id,
-      email: adminUser.email
+      sub: "admin",
+      email: expectedUsername
     });
 
     const response = NextResponse.json({ ok: true });

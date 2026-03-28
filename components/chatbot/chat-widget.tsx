@@ -35,6 +35,10 @@ type StoredChatbotState = {
   leadValues?: LeadValues;
 };
 
+type ChatWidgetProps = {
+  contactPhone: string;
+};
+
 const STORAGE_KEY = "kamkimat-chatbot-session";
 const BOT_REPLY_DELAY_MS = 1000;
 
@@ -79,7 +83,7 @@ function normalizeMessages(messages: unknown) {
   return normalized.length > 0 ? normalized : [initialMessage];
 }
 
-export function ChatWidget() {
+export function ChatWidget({ contactPhone }: ChatWidgetProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatbotUiMessage[]>([initialMessage]);
   const [draft, setDraft] = useState("");
@@ -93,7 +97,7 @@ export function ChatWidget() {
   const [isSavingLead, setIsSavingLead] = useState(false);
   const scrollAnchorRef = useRef<HTMLDivElement | null>(null);
   const userMessageCount = messages.filter((message) => message.role === "user").length;
-  const whatsappLink = getKamkimatWhatsappLink();
+  const whatsappLink = getKamkimatWhatsappLink(undefined, contactPhone);
 
   useEffect(() => {
     try {
