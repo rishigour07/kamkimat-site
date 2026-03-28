@@ -43,6 +43,7 @@ Open `http://localhost:3000`.
   - homepage text
   - about page content
   - services page content
+  - founder cards, founder photos, and founder visibility
 
 ## Contact handling
 
@@ -73,7 +74,7 @@ npm run start
 
 ## Notes
 
-- The founder section is static and not editable from the admin panel.
+- Founder content is editable from the admin panel and rendered on the About page after saving.
 - The chatbot keeps the rule-based mode by default. Set `USE_OPENAI=true` and add `OPENAI_API_KEY` only if you want to re-enable the OpenAI route later.
 - For production persistence on Vercel, set the GitHub env vars so `/api/admin/content` can commit updates back to your repo.
 - If GitHub read access fails, the site falls back to the local `data/content.json` file bundled with the deployment.
