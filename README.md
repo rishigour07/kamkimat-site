@@ -13,7 +13,8 @@ ADMIN_SESSION_SECRET="replace-this-with-a-long-random-secret"
 GITHUB_TOKEN="github_pat_replace_me"
 GITHUB_OWNER="your-github-username-or-org"
 GITHUB_REPO="your-repo-name"
-GITHUB_BRANCH="main"
+# Use your actual deploy branch. On Vercel, the app also falls back to VERCEL_GIT_COMMIT_REF.
+GITHUB_BRANCH="codex/kamkimat-site"
 CONTENT_FILE_PATH="data/content.json"
 EMAILJS_SERVICE_ID="service_xxxxxxx"
 EMAILJS_TEMPLATE_ID="template_xxxxxxx"
@@ -38,6 +39,7 @@ Open `http://localhost:3000`.
 - Admin login URL: `/admin/login`
 - The admin dashboard reads content from GitHub first and falls back to [content.json](D:/kam%20%20kimat%2055/data/content.json)
 - Saving in `/admin` commits the updated `data/content.json` file back to your GitHub repo
+- If `GITHUB_BRANCH` is wrong or missing on Vercel, the app falls back to `VERCEL_GIT_COMMIT_REF`
 - The admin dashboard edits:
   - contact details
   - homepage text
@@ -98,7 +100,7 @@ npm run start
 
 ## Notes
 
-- The founder section is static and not editable from the admin panel.
+- Founder content is editable from the admin panel and rendered on the About page after saving.
 - The chatbot keeps the rule-based mode by default. Set `USE_OPENAI=true` and add `OPENAI_API_KEY` only if you want to re-enable the OpenAI route later.
 - For production persistence on Vercel, set the GitHub env vars so `/api/admin/content` can commit updates back to your repo.
 - If GitHub read access fails, the site falls back to the local `data/content.json` file bundled with the deployment.
