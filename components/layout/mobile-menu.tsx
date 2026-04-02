@@ -19,7 +19,7 @@ export function MobileMenu({ open, pathname, onClose }: MobileMenuProps) {
       {open ? (
         <motion.div
           animate={{ opacity: 1, y: 0 }}
-          className="absolute inset-x-0 top-full mt-3 rounded-[28px] border border-white/10 bg-[#0c0d14]/95 p-5 shadow-glow backdrop-blur-2xl md:hidden"
+          className="absolute inset-x-4 top-full mt-2 rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_10px_30px_rgba(15,23,42,0.10)] md:hidden"
           exit={{ opacity: 0, y: -12 }}
           initial={{ opacity: 0, y: -12 }}
           transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
@@ -28,8 +28,8 @@ export function MobileMenu({ open, pathname, onClose }: MobileMenuProps) {
             {navLinks.map((link) => (
               <Link
                 className={cn(
-                  "block rounded-2xl border border-transparent px-4 py-3 text-sm font-medium text-white/70 transition duration-300 hover:border-white/10 hover:bg-white/[0.05] hover:text-white",
-                  pathname === link.href ? "border-white/10 bg-white/[0.06] text-white" : ""
+                  "block rounded-xl border border-transparent px-4 py-3 text-sm font-medium text-slate-600 transition duration-200 hover:border-slate-200 hover:bg-slate-50 hover:text-slate-900",
+                  pathname === link.href ? "border-slate-200 bg-slate-50 text-slate-900" : ""
                 )}
                 href={link.href}
                 key={link.href}
@@ -39,9 +39,9 @@ export function MobileMenu({ open, pathname, onClose }: MobileMenuProps) {
               </Link>
             ))}
           </nav>
-          <div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-            <div className="text-xs uppercase tracking-[0.22em] text-white/40">Start a project</div>
-            <p className="mt-2 text-sm leading-6 text-white/[0.65]">
+          <div className="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
+            <div className="text-xs uppercase tracking-[0.16em] text-slate-500">Start a project</div>
+            <p className="mt-2 text-sm leading-6 text-slate-600">
               Tell us what you want to automate, build, or scale, and we&apos;ll help shape the right next step.
             </p>
             <div className="mt-4 flex gap-3">
@@ -58,5 +58,4 @@ export function MobileMenu({ open, pathname, onClose }: MobileMenuProps) {
     </AnimatePresence>
   );
 }
-
 

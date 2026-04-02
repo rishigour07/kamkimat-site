@@ -66,29 +66,29 @@ export default async function ContactPage() {
                   {businessContactItems.map((item) => {
                     const Icon = getContactIcon(item.label);
 
-                    return item.href ? (
-                      <a
-                        className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white/75 transition duration-300 hover:border-white/[0.15] hover:text-white"
-                        href={item.href}
-                        key={item.label}
-                      >
-                        <Icon className="h-4 w-4 text-accent" />
-                        <span className="font-medium text-white">{item.label}:</span>
-                        {item.value}
-                      </a>
-                    ) : (
-                      <div
-                        className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white/75"
-                        key={item.label}
-                      >
-                        <Icon className="h-4 w-4 text-accent" />
-                        <span className="font-medium text-white">{item.label}:</span>
-                        {item.value}
-                      </div>
-                    );
-                  })}
-                </div>
-                <p className="mt-4 text-sm leading-7 text-white/60">
+                      return item.href ? (
+                        <a
+                          className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 transition duration-200 hover:border-slate-300 hover:text-slate-900"
+                          href={item.href}
+                          key={item.label}
+                        >
+                          <Icon className="h-4 w-4 text-accent" />
+                          <span className="font-medium text-slate-800">{item.label}:</span>
+                          {item.value}
+                        </a>
+                      ) : (
+                        <div
+                          className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700"
+                          key={item.label}
+                        >
+                          <Icon className="h-4 w-4 text-accent" />
+                          <span className="font-medium text-slate-800">{item.label}:</span>
+                          {item.value}
+                        </div>
+                      );
+                    })}
+                  </div>
+                <p className="mt-4 text-sm leading-7 text-slate-600">
                   Ideal for project scopes, AI automation opportunities, web app builds, and consulting requests.
                 </p>
               </GlowCard>
@@ -100,11 +100,11 @@ export default async function ContactPage() {
               return (
                 <FadeIn delay={0.12 + index * 0.06} key={reason.title}>
                   <GlowCard>
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05] text-accent">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-primary">
                       <Icon className="h-5 w-5" />
                     </div>
-                    <h3 className="mt-6 text-xl font-semibold text-white">{reason.title}</h3>
-                    <p className="mt-3 text-sm leading-7 text-white/[0.62]">{reason.description}</p>
+                    <h3 className="mt-6 text-xl font-semibold text-slate-800">{reason.title}</h3>
+                    <p className="mt-3 text-sm leading-7 text-slate-600">{reason.description}</p>
                   </GlowCard>
                 </FadeIn>
               );
@@ -126,8 +126,8 @@ export default async function ContactPage() {
             {faqs.slice(0, 3).map((item, index) => (
               <FadeIn delay={index * 0.05} key={item.question}>
                 <GlowCard>
-                  <h3 className="text-lg font-semibold text-white">{item.question}</h3>
-                  <p className="mt-3 text-sm leading-7 text-white/[0.62]">{item.answer}</p>
+                  <h3 className="text-lg font-semibold text-slate-800">{item.question}</h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-600">{item.answer}</p>
                 </GlowCard>
               </FadeIn>
             ))}
@@ -137,4 +137,3 @@ export default async function ContactPage() {
     </>
   );
 }
-

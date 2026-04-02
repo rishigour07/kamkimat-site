@@ -20,9 +20,9 @@ export function Navbar() {
   }, [pathname]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur">
       <div className="mx-auto max-w-7xl">
-        <div className="relative rounded-full border border-white/10 bg-black/[0.35] px-4 py-3 shadow-glow backdrop-blur-2xl sm:px-5">
+        <div className="px-4 py-3 sm:px-6">
           <div className="flex items-center justify-between gap-4">
             <Link aria-label={siteConfig.name} href="/">
               <LogoMark compact />
@@ -32,8 +32,8 @@ export function Navbar() {
               {navLinks.map((link) => (
                 <Link
                   className={cn(
-                    "rounded-full px-4 py-2 text-sm font-medium text-white/[0.65] transition duration-300 hover:bg-white/[0.05] hover:text-white",
-                    pathname === link.href ? "bg-white/[0.08] text-white" : ""
+                    "rounded-lg px-4 py-2 text-sm font-medium text-slate-600 transition duration-200 hover:bg-slate-100 hover:text-slate-900",
+                    pathname === link.href ? "bg-slate-100 text-slate-900" : ""
                   )}
                   href={link.href}
                   key={link.href}
@@ -49,7 +49,7 @@ export function Navbar() {
 
             <button
               aria-label={open ? "Close navigation menu" : "Open navigation menu"}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.05] text-white transition duration-300 hover:bg-white/[0.08] md:hidden"
+              className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-700 transition duration-200 hover:bg-slate-100 md:hidden"
               onClick={() => setOpen((value) => !value)}
               type="button"
             >
@@ -63,5 +63,4 @@ export function Navbar() {
     </header>
   );
 }
-
 

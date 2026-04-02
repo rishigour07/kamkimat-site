@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import {
   ArrowRight,
   Check,
+  CircleCheck,
   MessageSquareQuote,
-  Sparkles,
   type LucideIcon
 } from "lucide-react";
 
@@ -11,7 +11,6 @@ import { ButtonLink } from "@/components/ui/button-link";
 import { FadeIn } from "@/components/ui/fade-in";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
 import { GlowCard } from "@/components/ui/glow-card";
-import { HeroVisual } from "@/components/ui/hero-visual";
 import { SectionIntro } from "@/components/ui/section-intro";
 import { SectionShell } from "@/components/ui/section-shell";
 import { getSiteContentData } from "@/lib/site-content";
@@ -40,11 +39,11 @@ type IconCardProps = {
 function IconCard({ icon: Icon, title, description }: IconCardProps) {
   return (
     <GlowCard className="h-full">
-      <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05] text-accent">
+      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-primary">
         <Icon className="h-5 w-5" />
       </div>
-      <h3 className="mt-6 text-xl font-semibold text-white">{title}</h3>
-      <p className="mt-3 text-sm leading-7 text-white/[0.62]">{description}</p>
+      <h3 className="mt-5 text-xl font-semibold text-slate-800">{title}</h3>
+      <p className="mt-3 text-sm leading-7 text-slate-600">{description}</p>
     </GlowCard>
   );
 }
@@ -56,18 +55,15 @@ export default async function HomePage() {
 
   return (
     <>
-      <SectionShell className="pt-32 sm:pt-36 lg:pt-40">
-        <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr]">
+      <SectionShell className="pt-28 sm:pt-32 lg:pt-36">
+        <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr]">
           <FadeIn>
             <div className="max-w-3xl">
-              <div className="eyebrow">
-                <Sparkles className="mr-2 h-4 w-4 text-accent" />
-                {content.home.eyebrow}
-              </div>
-              <h1 className="mt-8 text-5xl font-semibold leading-[1.02] tracking-tight text-white sm:text-6xl">
+              <div className="eyebrow">{content.home.eyebrow}</div>
+              <h1 className="mt-7 text-4xl font-semibold leading-tight tracking-tight text-slate-800 sm:text-5xl lg:text-6xl">
                 {content.home.headline}
               </h1>
-              <p className="mt-6 max-w-2xl text-lg leading-8 text-white/[0.68] sm:text-xl">
+              <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl">
                 {content.home.description}
               </p>
               <div className="mt-8 flex flex-wrap gap-4">
@@ -86,7 +82,24 @@ export default async function HomePage() {
             </div>
           </FadeIn>
           <FadeIn delay={0.12}>
-            <HeroVisual />
+            <GlowCard>
+              <div className="text-sm font-semibold uppercase tracking-[0.15em] text-primary">
+                Why teams choose Kamkimat
+              </div>
+              <h2 className="mt-4 text-2xl font-semibold text-slate-800">Built for practical growth</h2>
+              <div className="mt-6 space-y-4">
+                {[
+                  "Clear project scoping and realistic timelines",
+                  "Business-first product and automation decisions",
+                  "Maintainable systems your team can actually run"
+                ].map((item) => (
+                  <div className="flex items-start gap-3" key={item}>
+                    <CircleCheck className="mt-0.5 h-5 w-5 text-primary" />
+                    <p className="text-sm leading-7 text-slate-600">{item}</p>
+                  </div>
+                ))}
+              </div>
+            </GlowCard>
           </FadeIn>
         </div>
       </SectionShell>
@@ -96,9 +109,9 @@ export default async function HomePage() {
           {stats.map((stat, index) => (
             <FadeIn delay={index * 0.06} key={stat.label}>
               <GlowCard className="h-full">
-                <div className="text-4xl font-semibold text-white">{stat.value}</div>
-                <div className="mt-3 text-lg font-medium text-white">{stat.label}</div>
-                <p className="mt-2 text-sm leading-7 text-white/[0.58]">{stat.detail}</p>
+                <div className="text-4xl font-semibold text-slate-800">{stat.value}</div>
+                <div className="mt-2 text-lg font-medium text-slate-800">{stat.label}</div>
+                <p className="mt-2 text-sm leading-7 text-slate-600">{stat.detail}</p>
               </GlowCard>
             </FadeIn>
           ))}
@@ -118,15 +131,15 @@ export default async function HomePage() {
             return (
               <FadeIn delay={index * 0.05} key={service.title}>
                 <GlowCard className="h-full">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05] text-accent">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-primary">
                     <Icon className="h-5 w-5" />
                   </div>
-                  <h3 className="mt-6 text-xl font-semibold text-white">{service.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-white/[0.62]">{service.description}</p>
+                  <h3 className="mt-6 text-xl font-semibold text-slate-800">{service.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-600">{service.description}</p>
                   <div className="mt-6 space-y-3">
                     {service.points.map((point) => (
-                      <div className="flex items-center gap-3 text-sm text-white/[0.68]" key={point}>
-                        <Check className="h-4 w-4 text-accent" />
+                      <div className="flex items-center gap-3 text-sm text-slate-600" key={point}>
+                        <Check className="h-4 w-4 text-primary" />
                         {point}
                       </div>
                     ))}
@@ -172,13 +185,13 @@ export default async function HomePage() {
               <FadeIn delay={index * 0.08} key={step.title}>
                 <GlowCard className="h-full">
                   <div className="flex items-center justify-between gap-4">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05] text-accent">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-primary">
                       <Icon className="h-5 w-5" />
                     </div>
-                    <div className="text-sm font-semibold text-white/[0.35]">0{index + 1}</div>
+                    <div className="text-sm font-semibold text-slate-400">0{index + 1}</div>
                   </div>
-                  <h3 className="mt-6 text-xl font-semibold text-white">{step.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-white/[0.62]">{step.description}</p>
+                  <h3 className="mt-6 text-xl font-semibold text-slate-800">{step.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-600">{step.description}</p>
                 </GlowCard>
               </FadeIn>
             );
@@ -197,14 +210,14 @@ export default async function HomePage() {
           </FadeIn>
           <FadeIn delay={0.1}>
             <GlowCard className="h-full">
-              <div className="text-sm font-semibold uppercase tracking-[0.24em] text-accent/90">
+              <div className="text-sm font-semibold uppercase tracking-[0.15em] text-primary">
                 What premium teams want
               </div>
               <div className="mt-4 space-y-4">
                 {insightPoints.map((point) => (
-                  <div className="rounded-[22px] border border-white/10 bg-black/20 p-4" key={point.title}>
-                    <div className="text-base font-medium text-white">{point.title}</div>
-                    <p className="mt-2 text-sm leading-7 text-white/60">{point.description}</p>
+                  <div className="rounded-xl border border-slate-200 bg-slate-50 p-4" key={point.title}>
+                    <div className="text-base font-medium text-slate-800">{point.title}</div>
+                    <p className="mt-2 text-sm leading-7 text-slate-600">{point.description}</p>
                   </div>
                 ))}
               </div>
@@ -235,11 +248,11 @@ export default async function HomePage() {
           {testimonialThemes.map((item, index) => (
             <FadeIn delay={index * 0.08} key={item.person}>
               <GlowCard className="h-full">
-                <MessageSquareQuote className="h-8 w-8 text-accent" />
-                <p className="mt-6 text-lg leading-8 text-white/[0.78]">&ldquo;{item.quote}&rdquo;</p>
+                <MessageSquareQuote className="h-8 w-8 text-primary" />
+                <p className="mt-6 text-lg leading-8 text-slate-700">&ldquo;{item.quote}&rdquo;</p>
                 <div className="mt-8">
-                  <div className="text-base font-semibold text-white">{item.person}</div>
-                  <div className="text-sm text-white/[0.45]">{item.role}</div>
+                  <div className="text-base font-semibold text-slate-800">{item.person}</div>
+                  <div className="text-sm text-slate-500">{item.role}</div>
                 </div>
               </GlowCard>
             </FadeIn>
@@ -264,15 +277,14 @@ export default async function HomePage() {
 
       <SectionShell className="pb-24 sm:pb-28">
         <FadeIn>
-          <div className="relative overflow-hidden rounded-[36px] border border-white/10 bg-white/[0.05] px-6 py-10 shadow-glow backdrop-blur-2xl sm:px-10 sm:py-12 lg:px-12">
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(108,99,255,0.26),_transparent_40%),radial-gradient(circle_at_bottom_right,_rgba(0,212,255,0.16),_transparent_42%)]" />
+          <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white px-6 py-10 shadow-[0_8px_28px_rgba(15,23,42,0.08)] sm:px-10 sm:py-12 lg:px-12">
             <div className="relative flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
               <div className="max-w-3xl">
                 <div className="eyebrow">Ready To Build</div>
-                <h2 className="mt-5 text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl">
+                <h2 className="mt-5 text-3xl font-semibold tracking-tight text-slate-800 sm:text-4xl lg:text-5xl">
                   {content.home.ctaTitle}
                 </h2>
-                <p className="mt-4 text-base leading-8 text-white/[0.68] sm:text-lg">
+                <p className="mt-4 text-base leading-8 text-slate-600 sm:text-lg">
                   {content.home.ctaDescription}
                 </p>
               </div>
@@ -290,4 +302,3 @@ export default async function HomePage() {
     </>
   );
 }
-

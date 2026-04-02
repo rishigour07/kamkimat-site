@@ -22,15 +22,14 @@ export function PageHero({
   className
 }: PageHeroProps) {
   return (
-    <SectionShell className={cn("pt-32 sm:pt-36", className)}>
-      <div className="relative overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.04] px-6 py-12 shadow-glow backdrop-blur-2xl sm:px-10 sm:py-16 lg:px-14">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(108,99,255,0.24),_transparent_40%),radial-gradient(circle_at_bottom_right,_rgba(0,212,255,0.18),_transparent_38%)]" />
+    <SectionShell className={cn("pt-28 sm:pt-32", className)}>
+      <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white px-6 py-12 shadow-[0_4px_20px_rgba(15,23,42,0.06)] sm:px-10 sm:py-16 lg:px-14">
         <div className="relative max-w-4xl">
           <div className="eyebrow">{eyebrow}</div>
-          <h1 className="mt-6 text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
+          <h1 className="mt-6 text-4xl font-semibold tracking-tight text-slate-800 sm:text-5xl lg:text-6xl">
             {title}
           </h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-white/[0.68]">{description}</p>
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600">{description}</p>
           {(primaryCta || secondaryCta) && (
             <div className="mt-8 flex flex-wrap gap-4">
               {primaryCta ? <ButtonLink href={primaryCta.href}>{primaryCta.label}</ButtonLink> : null}
@@ -47,5 +46,4 @@ export function PageHero({
     </SectionShell>
   );
 }
-
 

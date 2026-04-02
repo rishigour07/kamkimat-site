@@ -190,7 +190,7 @@ export function ContentEditor({ initialContent }: ContentEditorProps) {
   };
 
   const inputClassName =
-    "w-full rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white outline-none transition duration-300 placeholder:text-white/[0.28] focus:border-accent/40";
+    "w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition duration-200 placeholder:text-slate-400 focus:border-primary";
 
   return (
     <form className="space-y-10" onSubmit={handleSubmit}>
@@ -334,8 +334,8 @@ export function ContentEditor({ initialContent }: ContentEditorProps) {
         </div>
         <div className="grid gap-4 xl:grid-cols-2">
           {content.about.values.map((value, index) => (
-            <div className="rounded-[24px] border border-white/10 bg-white/[0.03] p-4" key={`value-${index}`}>
-              <div className="text-sm font-semibold text-white">Value {index + 1}</div>
+            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4" key={`value-${index}`}>
+              <div className="text-sm font-semibold text-slate-800">Value {index + 1}</div>
               <div className="mt-4 space-y-3">
                 <input
                   className={inputClassName}
@@ -391,8 +391,8 @@ export function ContentEditor({ initialContent }: ContentEditorProps) {
         />
         <div className="grid gap-4">
           {content.services.items.map((service, index) => (
-            <div className="rounded-[24px] border border-white/10 bg-white/[0.03] p-4" key={`service-${index}`}>
-              <div className="text-sm font-semibold text-white">Service {index + 1}</div>
+            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4" key={`service-${index}`}>
+              <div className="text-sm font-semibold text-slate-800">Service {index + 1}</div>
               <div className="mt-4 grid gap-3">
                 <input
                   className={inputClassName}
@@ -428,7 +428,7 @@ export function ContentEditor({ initialContent }: ContentEditorProps) {
         <div className="flex items-center justify-between gap-4">
           <div className="eyebrow">Founders</div>
           <button
-            className="button-secondary inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-semibold"
+            className="button-secondary inline-flex items-center justify-center rounded-xl px-5 py-2 text-sm font-semibold"
             onClick={addFounder}
             type="button"
           >
@@ -437,19 +437,19 @@ export function ContentEditor({ initialContent }: ContentEditorProps) {
         </div>
 
         {content.founders.length === 0 ? (
-          <div className="rounded-[24px] border border-dashed border-white/10 bg-white/[0.03] px-5 py-6 text-sm text-white/[0.6]">
+          <div className="rounded-xl border border-dashed border-slate-300 bg-slate-50 px-5 py-6 text-sm text-slate-500">
             No founders added yet. Click `Add Founder` to show the founder section on the About page.
           </div>
         ) : (
           <div className="grid gap-4">
             {content.founders.map((founder, index) => (
               <div
-                className="rounded-[24px] border border-white/10 bg-white/[0.03] p-4"
+                className="rounded-xl border border-slate-200 bg-slate-50 p-4"
                 key={founder.id}
               >
                 <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                   <div className="flex-1 space-y-3">
-                    <div className="text-sm font-semibold text-white">Founder {index + 1}</div>
+                    <div className="text-sm font-semibold text-slate-800">Founder {index + 1}</div>
                     <input
                       className={inputClassName}
                       onChange={(event) => updateFounderField(index, "name", event.target.value)}
@@ -472,10 +472,10 @@ export function ContentEditor({ initialContent }: ContentEditorProps) {
                       value={founder.description}
                     />
                     <div className="grid gap-3 sm:grid-cols-[auto_1fr] sm:items-center">
-                      <label className="inline-flex items-center gap-2 text-sm text-white/[0.7]">
+                      <label className="inline-flex items-center gap-2 text-sm text-slate-600">
                         <input
                           checked={founder.isVisible}
-                          className="h-4 w-4 rounded border-white/20 bg-white/[0.06]"
+                          className="h-4 w-4 rounded border-slate-300 bg-white"
                           onChange={(event) =>
                             updateFounderField(index, "isVisible", event.target.checked)
                           }
@@ -485,7 +485,7 @@ export function ContentEditor({ initialContent }: ContentEditorProps) {
                       </label>
                       <input
                         accept="image/*"
-                        className="w-full rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white file:mr-4 file:rounded-full file:border-0 file:bg-white/10 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-white/15"
+                        className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 file:mr-4 file:rounded-lg file:border-0 file:bg-slate-100 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-slate-700 hover:file:bg-slate-200"
                         onChange={(event) =>
                           handleFounderPhotoChange(index, event.target.files?.[0] ?? null)
                         }
@@ -498,17 +498,17 @@ export function ContentEditor({ initialContent }: ContentEditorProps) {
                     {founder.photoData ? (
                       <img
                         alt={founder.name || `Founder ${index + 1}`}
-                        className="h-32 w-32 rounded-3xl border border-white/10 object-cover"
+                        className="h-32 w-32 rounded-3xl border border-slate-200 object-cover"
                         src={founder.photoData}
                       />
                     ) : (
-                      <div className="flex h-32 w-32 items-center justify-center rounded-3xl border border-dashed border-white/10 bg-white/[0.03] text-sm text-white/[0.45]">
+                      <div className="flex h-32 w-32 items-center justify-center rounded-3xl border border-dashed border-slate-300 bg-slate-100 text-sm text-slate-500">
                         No photo
                       </div>
                     )}
 
                     <button
-                      className="mt-4 inline-flex items-center justify-center rounded-full border border-rose-400/25 bg-rose-400/10 px-4 py-2 text-sm font-semibold text-rose-200 transition duration-300 hover:bg-rose-400/15"
+                      className="mt-4 inline-flex items-center justify-center rounded-xl border border-rose-200 bg-rose-50 px-4 py-2 text-sm font-semibold text-rose-700 transition duration-200 hover:bg-rose-100"
                       onClick={() => removeFounder(index)}
                       type="button"
                     >
@@ -523,20 +523,20 @@ export function ContentEditor({ initialContent }: ContentEditorProps) {
       </section>
 
       {feedback ? (
-        <div className="fixed right-6 top-24 z-50 rounded-2xl border border-emerald-400/25 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-200 shadow-xl backdrop-blur-xl">
+        <div className="fixed right-6 top-24 z-50 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700 shadow-lg">
           {feedback}
         </div>
       ) : null}
 
       {error ? (
-        <div className="fixed right-6 top-24 z-50 rounded-2xl border border-rose-400/25 bg-rose-400/10 px-4 py-3 text-sm text-rose-200 shadow-xl backdrop-blur-xl">
+        <div className="fixed right-6 top-24 z-50 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700 shadow-lg">
           {error}
         </div>
       ) : null}
 
       <div className="flex justify-end">
         <button
-          className="button-primary inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold shadow-glow transition duration-300 hover:translate-y-[-1px] hover:shadow-glow-accent disabled:cursor-not-allowed disabled:opacity-60"
+          className="button-primary inline-flex items-center justify-center rounded-xl px-6 py-3 text-sm font-semibold transition duration-200 hover:bg-[#1f6fd6] disabled:cursor-not-allowed disabled:opacity-60"
           disabled={isSaving}
           type="submit"
         >

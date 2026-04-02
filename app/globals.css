@@ -3,11 +3,14 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: dark;
-  --background: #0a0a0f;
-  --primary: #6c63ff;
-  --accent: #00d4ff;
-  --text-secondary: #a1a1aa;
+  color-scheme: light;
+  --background: #f8fafc;
+  --surface: #ffffff;
+  --surface-soft: #f1f5f9;
+  --primary: #2f80ed;
+  --accent: #56a6ff;
+  --text: #1f2937;
+  --text-secondary: #64748b;
 }
 
 html {
@@ -16,11 +19,8 @@ html {
 
 body {
   min-height: 100vh;
-  background:
-    radial-gradient(circle at top left, rgba(108, 99, 255, 0.2), transparent 30%),
-    radial-gradient(circle at top right, rgba(0, 212, 255, 0.12), transparent 24%),
-    radial-gradient(circle at bottom center, rgba(108, 99, 255, 0.14), transparent 32%),
-    var(--background);
+  background-color: var(--background);
+  color: var(--text);
 }
 
 body::before {
@@ -29,12 +29,11 @@ body::before {
   inset: 0;
   pointer-events: none;
   z-index: -1;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-image: linear-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
   background-size: 72px 72px;
   mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 1), transparent 88%);
-  opacity: 0.18;
+  opacity: 0.45;
 }
 
 body::after {
@@ -43,15 +42,14 @@ body::after {
   inset: 0;
   pointer-events: none;
   z-index: -2;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(108, 99, 255, 0.1), transparent 22%),
-    radial-gradient(circle at 80% 0%, rgba(0, 212, 255, 0.08), transparent 18%);
-  filter: blur(24px);
+  background: radial-gradient(circle at 18% 0%, rgba(47, 128, 237, 0.08), transparent 42%),
+    radial-gradient(circle at 88% 10%, rgba(86, 166, 255, 0.1), transparent 36%);
+  filter: blur(48px);
 }
 
 ::selection {
-  background: rgba(108, 99, 255, 0.45);
-  color: #fff;
+  background: rgba(47, 128, 237, 0.22);
+  color: #0f172a;
 }
 
 ::-webkit-scrollbar {
@@ -59,11 +57,11 @@ body::after {
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.02);
+  background: #e2e8f0;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgba(108, 99, 255, 0.75), rgba(0, 212, 255, 0.75));
+  background: linear-gradient(180deg, rgba(47, 128, 237, 0.8), rgba(86, 166, 255, 0.9));
   border-radius: 999px;
 }
 
@@ -77,34 +75,42 @@ textarea {
   }
 
   body {
-    @apply font-sans text-white antialiased;
+    @apply font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-poppins), var(--font-inter), sans-serif;
+    @apply text-slate-800;
   }
 }
 
 @layer components {
   .eyebrow {
-    @apply inline-flex items-center rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs font-semibold uppercase tracking-[0.26em] text-white/60;
+    @apply inline-flex items-center rounded-full border border-slate-200 bg-slate-100 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-600;
   }
 
   .button-primary {
-    @apply border border-white/10 bg-[linear-gradient(135deg,#6C63FF_0%,#00D4FF_140%)] text-white;
+    @apply border border-primary bg-primary text-white;
   }
 
   .button-secondary {
-    @apply border border-white/10 bg-white/[0.04] text-white;
+    @apply border border-slate-200 bg-white text-slate-700;
   }
 
   .button-ghost {
-    @apply border border-transparent bg-transparent text-white/70;
+    @apply border border-transparent bg-transparent text-slate-600;
   }
 
   .metric-chip {
-    @apply rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm text-white/60;
+    @apply rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm text-slate-600;
   }
 
   .text-gradient {
-    @apply bg-[linear-gradient(90deg,#FFFFFF_0%,#B6F4FF_28%,#6C63FF_100%)] bg-clip-text text-transparent;
+    @apply bg-[linear-gradient(90deg,#1f2937_0%,#2F80ED_100%)] bg-clip-text text-transparent;
   }
 }
-
-

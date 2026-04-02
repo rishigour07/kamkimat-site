@@ -37,22 +37,22 @@ export default function PortfolioPage() {
             <FadeIn delay={index * 0.07} key={study.title}>
               <GlowCard className="flex h-full flex-col">
                 <div className="eyebrow">{study.sector}</div>
-                <h2 className="mt-6 text-2xl font-semibold text-white">{study.title}</h2>
+                <h2 className="mt-6 text-2xl font-semibold text-slate-800">{study.title}</h2>
                 <div className="mt-6 space-y-5">
                   <div>
-                    <div className="text-sm font-semibold uppercase tracking-[0.2em] text-white/[0.45]">Problem</div>
-                    <p className="mt-2 text-sm leading-7 text-white/[0.62]">{study.problem}</p>
+                    <div className="text-sm font-semibold uppercase tracking-[0.15em] text-slate-500">Problem</div>
+                    <p className="mt-2 text-sm leading-7 text-slate-600">{study.problem}</p>
                   </div>
                   <div>
-                    <div className="text-sm font-semibold uppercase tracking-[0.2em] text-white/[0.45]">Solution</div>
-                    <p className="mt-2 text-sm leading-7 text-white/[0.62]">{study.solution}</p>
+                    <div className="text-sm font-semibold uppercase tracking-[0.15em] text-slate-500">Solution</div>
+                    <p className="mt-2 text-sm leading-7 text-slate-600">{study.solution}</p>
                   </div>
                   <div>
-                    <div className="text-sm font-semibold uppercase tracking-[0.2em] text-white/[0.45]">Impact</div>
+                    <div className="text-sm font-semibold uppercase tracking-[0.15em] text-slate-500">Impact</div>
                     <div className="mt-3 space-y-3">
                       {study.impact.map((item) => (
-                        <div className="flex items-center gap-3 text-sm text-white/[0.68]" key={item}>
-                          <CheckCircle2 className="h-4 w-4 text-accent" />
+                        <div className="flex items-center gap-3 text-sm text-slate-600" key={item}>
+                          <CheckCircle2 className="h-4 w-4 text-primary" />
                           {item}
                         </div>
                       ))}
@@ -76,8 +76,8 @@ export default function PortfolioPage() {
           {insightPoints.map((point, index) => (
             <FadeIn delay={index * 0.06} key={point.title}>
               <GlowCard className="h-full">
-                <h3 className="text-xl font-semibold text-white">{point.title}</h3>
-                <p className="mt-4 text-sm leading-7 text-white/[0.62]">{point.description}</p>
+                <h3 className="text-xl font-semibold text-slate-800">{point.title}</h3>
+                <p className="mt-4 text-sm leading-7 text-slate-600">{point.description}</p>
               </GlowCard>
             </FadeIn>
           ))}
@@ -89,10 +89,10 @@ export default function PortfolioPage() {
           <GlowCard className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-3xl">
               <div className="eyebrow">Bring Your Use Case</div>
-              <h2 className="mt-5 text-3xl font-semibold text-white sm:text-4xl">
+              <h2 className="mt-5 text-3xl font-semibold text-slate-800 sm:text-4xl">
                 If you have a workflow bottleneck or product idea, let&apos;s shape the right system for it
               </h2>
-              <p className="mt-4 text-base leading-8 text-white/[0.65]">
+              <p className="mt-4 text-base leading-8 text-slate-600">
                 Kamkimat can help turn scattered processes, repetitive tasks, or underpowered product flows into a cleaner growth engine.
               </p>
             </div>
@@ -106,5 +106,4 @@ export default function PortfolioPage() {
     </>
   );
 }
-
 

@@ -145,17 +145,17 @@ export function ContactForm({ contactEmail, serviceOptions }: ContactFormProps) 
 
   const inputClassName = (field: keyof FormValues) =>
     cn(
-      "w-full rounded-2xl border bg-white/[0.04] px-4 py-3 text-sm text-white outline-none transition duration-300 placeholder:text-white/[0.28]",
+      "w-full rounded-xl border bg-white px-4 py-3 text-sm text-slate-800 outline-none transition duration-200 placeholder:text-slate-400",
       touched[field] && errors[field]
         ? "border-rose-400/60 focus:border-rose-300"
-        : "border-white/10 focus:border-accent/40"
+        : "border-slate-200 focus:border-primary"
     );
 
   return (
     <form className="space-y-5" noValidate onSubmit={handleSubmit}>
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
-          <label className="mb-2 block text-sm font-medium text-white/75" htmlFor="name">
+          <label className="mb-2 block text-sm font-medium text-slate-700" htmlFor="name">
             Name
           </label>
           <input
@@ -170,7 +170,7 @@ export function ContactForm({ contactEmail, serviceOptions }: ContactFormProps) 
           {touched.name && errors.name ? <p className="mt-2 text-sm text-rose-300">{errors.name}</p> : null}
         </div>
         <div>
-          <label className="mb-2 block text-sm font-medium text-white/75" htmlFor="email">
+          <label className="mb-2 block text-sm font-medium text-slate-700" htmlFor="email">
             Email
           </label>
           <input
@@ -191,7 +191,7 @@ export function ContactForm({ contactEmail, serviceOptions }: ContactFormProps) 
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
-          <label className="mb-2 block text-sm font-medium text-white/75" htmlFor="company">
+          <label className="mb-2 block text-sm font-medium text-slate-700" htmlFor="company">
             Company
           </label>
           <input
@@ -205,7 +205,7 @@ export function ContactForm({ contactEmail, serviceOptions }: ContactFormProps) 
           />
         </div>
         <div>
-          <label className="mb-2 block text-sm font-medium text-white/75" htmlFor="phone">
+          <label className="mb-2 block text-sm font-medium text-slate-700" htmlFor="phone">
             Phone
           </label>
           <input
@@ -225,7 +225,7 @@ export function ContactForm({ contactEmail, serviceOptions }: ContactFormProps) 
       </div>
 
       <div>
-        <label className="mb-2 block text-sm font-medium text-white/75" htmlFor="service">
+        <label className="mb-2 block text-sm font-medium text-slate-700" htmlFor="service">
           Service
         </label>
         <select
@@ -236,11 +236,11 @@ export function ContactForm({ contactEmail, serviceOptions }: ContactFormProps) 
           onChange={handleChange}
           value={values.service}
         >
-          <option className="bg-[#10111a]" value="">
+          <option className="bg-white text-slate-700" value="">
             Select a service
           </option>
           {serviceOptions.map((service) => (
-            <option className="bg-[#10111a]" key={service} value={service}>
+            <option className="bg-white text-slate-700" key={service} value={service}>
               {service}
             </option>
           ))}
@@ -251,7 +251,7 @@ export function ContactForm({ contactEmail, serviceOptions }: ContactFormProps) 
       </div>
 
       <div>
-        <label className="mb-2 block text-sm font-medium text-white/75" htmlFor="message">
+        <label className="mb-2 block text-sm font-medium text-slate-700" htmlFor="message">
           Message
         </label>
         <textarea
@@ -270,11 +270,11 @@ export function ContactForm({ contactEmail, serviceOptions }: ContactFormProps) 
       </div>
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="text-sm leading-6 text-white/[0.48]">
+        <div className="text-sm leading-6 text-slate-500">
           Your inquiry is sent directly to the Kamkimat inbox through secure server-side email delivery.
         </div>
         <button
-          className="button-primary inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold shadow-glow transition duration-300 hover:translate-y-[-1px] hover:shadow-glow-accent disabled:cursor-not-allowed disabled:opacity-60"
+          className="button-primary inline-flex items-center justify-center rounded-xl px-6 py-3 text-sm font-semibold transition duration-200 hover:bg-[#1f6fd6] disabled:cursor-not-allowed disabled:opacity-60"
           disabled={isSubmitting}
           type="submit"
         >
@@ -283,17 +283,16 @@ export function ContactForm({ contactEmail, serviceOptions }: ContactFormProps) 
       </div>
 
       {feedback?.type === "success" ? (
-        <div className="rounded-2xl border border-emerald-400/25 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-200">
+        <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
           {feedback.message}
         </div>
       ) : null}
 
       {feedback?.type === "error" ? (
-        <div className="rounded-2xl border border-rose-400/25 bg-rose-400/10 px-4 py-3 text-sm text-rose-200">
+        <div className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
           {feedback.message}
         </div>
       ) : null}
     </form>
   );
 }
-

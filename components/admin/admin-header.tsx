@@ -25,18 +25,18 @@ export function AdminHeader({ sessionEmail, title, description }: AdminHeaderPro
   };
 
   return (
-    <div className="rounded-[28px] border border-white/10 bg-white/[0.04] p-6 shadow-glow backdrop-blur-xl">
+    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-[0_1px_3px_rgba(15,23,42,0.06)]">
       <div className="flex flex-col gap-6 xl:flex-row xl:items-center xl:justify-between">
         <div>
           <div className="eyebrow">Admin</div>
-          <h1 className="mt-4 text-3xl font-semibold text-white">{title}</h1>
-          <p className="mt-3 max-w-2xl text-sm leading-7 text-white/[0.62]">
+          <h1 className="mt-4 text-3xl font-semibold text-slate-800">{title}</h1>
+          <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600">
             Signed in as {sessionEmail}. {description}
           </p>
         </div>
 
         <button
-          className="button-secondary inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold"
+          className="button-secondary inline-flex items-center justify-center rounded-xl px-6 py-3 text-sm font-semibold"
           onClick={handleLogout}
           type="button"
         >

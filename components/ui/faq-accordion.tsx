@@ -21,7 +21,7 @@ export function FaqAccordion({ items }: FaqAccordionProps) {
 
         return (
           <div
-            className="overflow-hidden rounded-[24px] border border-white/10 bg-white/[0.04] shadow-glow backdrop-blur-xl"
+            className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_1px_3px_rgba(15,23,42,0.06)]"
             key={item.question}
           >
             <button
@@ -29,11 +29,11 @@ export function FaqAccordion({ items }: FaqAccordionProps) {
               onClick={() => setOpenIndex(isOpen ? -1 : index)}
               type="button"
             >
-              <span className="text-base font-medium text-white sm:text-lg">{item.question}</span>
+              <span className="text-base font-medium text-slate-800 sm:text-lg">{item.question}</span>
               <span
                 className={cn(
-                  "flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/70 transition duration-300",
-                  isOpen ? "rotate-180 border-accent/30 text-accent" : ""
+                  "flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-slate-50 text-slate-600 transition duration-200",
+                  isOpen ? "rotate-180 border-blue-200 text-primary" : ""
                 )}
               >
                 <ChevronDown className="h-5 w-5" />
@@ -47,7 +47,7 @@ export function FaqAccordion({ items }: FaqAccordionProps) {
                   exit={{ height: 0, opacity: 0 }}
                   transition={{ duration: 0.25, ease: "easeOut" }}
                 >
-                  <div className="px-6 pb-6 text-sm leading-7 text-white/[0.68] sm:text-base">{item.answer}</div>
+                  <div className="px-6 pb-6 text-sm leading-7 text-slate-600 sm:text-base">{item.answer}</div>
                 </motion.div>
               ) : null}
             </AnimatePresence>
@@ -57,5 +57,4 @@ export function FaqAccordion({ items }: FaqAccordionProps) {
     </div>
   );
 }
-
 

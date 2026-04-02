@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
 
 import { ChatWidget } from "@/components/chatbot/chat-widget";
 import { Footer } from "@/components/layout/footer";
@@ -9,19 +9,34 @@ import { getSiteContentData } from "@/lib/site-content";
 
 import "./globals.css";
 
+const siteUrl = `https://${siteConfig.domain}`;
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap"
 });
 
+const poppins = Poppins({
+  subsets: ["latin"],
+  variable: "--font-poppins",
+  weight: ["500", "600", "700"],
+  display: "swap"
+});
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     default: "Kamkimat | Premium AI Software Systems",
     template: "%s | Kamkimat"
   },
   description: siteConfig.description,
   applicationName: siteConfig.name,
+  icons: {
+    icon: "/kamkimat-logo.png",
+    shortcut: "/kamkimat-logo.png",
+    apple: "/kamkimat-logo.png"
+  },
   keywords: [
     "Kamkimat",
     "AI automation",
@@ -35,12 +50,22 @@ export const metadata: Metadata = {
     title: "Kamkimat | Premium AI Software Systems",
     description: siteConfig.description,
     siteName: siteConfig.name,
-    type: "website"
+    type: "website",
+    url: siteUrl,
+    images: [
+      {
+        url: "/kamkimat-logo.png",
+        width: 831,
+        height: 240,
+        alt: "Kamkimat logo"
+      }
+    ]
   },
   twitter: {
     card: "summary_large_image",
     title: "Kamkimat | Premium AI Software Systems",
-    description: siteConfig.description
+    description: siteConfig.description,
+    images: ["/kamkimat-logo.png"]
   }
 };
 
@@ -53,9 +78,8 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${inter.variable} bg-background`}>
+      <body className={`${inter.variable} ${poppins.variable} bg-background`}>
         <div className="relative min-h-screen overflow-x-hidden">
-          <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[540px] bg-[radial-gradient(circle_at_top,_rgba(108,99,255,0.16),_transparent_38%),radial-gradient(circle_at_top_right,_rgba(0,212,255,0.12),_transparent_28%)]" />
           <Navbar />
           <main>{children}</main>
           <Footer />

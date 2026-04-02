@@ -45,11 +45,11 @@ export function AdminLoginForm() {
   return (
     <form className="space-y-5" onSubmit={handleSubmit}>
       <div>
-        <label className="mb-2 block text-sm font-medium text-white/75" htmlFor="admin-username">
+        <label className="mb-2 block text-sm font-medium text-slate-700" htmlFor="admin-username">
           Admin username
         </label>
         <input
-          className="w-full rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white outline-none transition duration-300 placeholder:text-white/[0.28] focus:border-accent/40"
+          className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition duration-200 placeholder:text-slate-400 focus:border-primary"
           id="admin-username"
           name="username"
           onChange={(event) => setUsername(event.target.value)}
@@ -59,11 +59,11 @@ export function AdminLoginForm() {
       </div>
 
       <div>
-        <label className="mb-2 block text-sm font-medium text-white/75" htmlFor="admin-password">
+        <label className="mb-2 block text-sm font-medium text-slate-700" htmlFor="admin-password">
           Password
         </label>
         <input
-          className="w-full rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white outline-none transition duration-300 placeholder:text-white/[0.28] focus:border-accent/40"
+          className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition duration-200 placeholder:text-slate-400 focus:border-primary"
           id="admin-password"
           name="password"
           onChange={(event) => setPassword(event.target.value)}
@@ -74,13 +74,13 @@ export function AdminLoginForm() {
       </div>
 
       {error ? (
-        <div className="rounded-2xl border border-rose-400/25 bg-rose-400/10 px-4 py-3 text-sm text-rose-200">
+        <div className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
           {error}
         </div>
       ) : null}
 
       <button
-        className="button-primary inline-flex w-full items-center justify-center rounded-full px-6 py-3 text-sm font-semibold shadow-glow transition duration-300 hover:translate-y-[-1px] hover:shadow-glow-accent disabled:cursor-not-allowed disabled:opacity-60"
+        className="button-primary inline-flex w-full items-center justify-center rounded-xl px-6 py-3 text-sm font-semibold transition duration-200 hover:bg-[#1f6fd6] disabled:cursor-not-allowed disabled:opacity-60"
         disabled={isPending}
         type="submit"
       >
@@ -89,4 +89,3 @@ export function AdminLoginForm() {
     </form>
   );
 }
-

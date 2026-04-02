@@ -44,15 +44,15 @@ export default async function ServicesPage() {
             return (
               <FadeIn delay={index * 0.06} key={service.title}>
                 <GlowCard className="h-full">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05] text-accent">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-primary">
                     <Icon className="h-5 w-5" />
                   </div>
-                  <h2 className="mt-6 text-2xl font-semibold text-white">{service.title}</h2>
-                  <p className="mt-3 text-sm leading-7 text-white/[0.62]">{service.description}</p>
+                  <h2 className="mt-6 text-2xl font-semibold text-slate-800">{service.title}</h2>
+                  <p className="mt-3 text-sm leading-7 text-slate-600">{service.description}</p>
                   <div className="mt-6 space-y-3">
                     {service.points.map((point) => (
-                      <div className="flex items-center gap-3 text-sm text-white/[0.66]" key={point}>
-                        <Check className="h-4 w-4 text-accent" />
+                      <div className="flex items-center gap-3 text-sm text-slate-600" key={point}>
+                        <Check className="h-4 w-4 text-primary" />
                         {point}
                       </div>
                     ))}
@@ -79,13 +79,13 @@ export default async function ServicesPage() {
               <FadeIn delay={index * 0.07} key={step.title}>
                 <GlowCard className="h-full">
                   <div className="flex items-center justify-between gap-4">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05] text-accent">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-primary">
                       <Icon className="h-5 w-5" />
                     </div>
-                    <div className="text-sm font-semibold text-white/[0.35]">0{index + 1}</div>
+                    <div className="text-sm font-semibold text-slate-400">0{index + 1}</div>
                   </div>
-                  <h3 className="mt-6 text-xl font-semibold text-white">{step.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-white/[0.62]">{step.description}</p>
+                  <h3 className="mt-6 text-xl font-semibold text-slate-800">{step.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-600">{step.description}</p>
                 </GlowCard>
               </FadeIn>
             );
@@ -98,10 +98,10 @@ export default async function ServicesPage() {
           <GlowCard className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-3xl">
               <div className="eyebrow">Next Step</div>
-              <h2 className="mt-5 text-3xl font-semibold text-white sm:text-4xl">
+              <h2 className="mt-5 text-3xl font-semibold text-slate-800 sm:text-4xl">
                 Need a system that fits your business instead of forcing your business to fit the tool?
               </h2>
-              <p className="mt-4 text-base leading-8 text-white/[0.65]">
+              <p className="mt-4 text-base leading-8 text-slate-600">
                 We can help scope the right engagement, whether you&apos;re launching a product, modernizing workflows, or adding AI to existing operations.
               </p>
             </div>
@@ -117,4 +117,3 @@ export default async function ServicesPage() {
     </>
   );
 }
-

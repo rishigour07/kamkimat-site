@@ -5,23 +5,24 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#0A0A0F",
-        primary: "#6C63FF",
-        accent: "#00D4FF",
-        card: "rgba(255,255,255,0.05)",
-        border: "rgba(255,255,255,0.1)",
-        muted: "#A1A1AA"
+        background: "#f8fafc",
+        primary: "#2F80ED",
+        accent: "#56A6FF",
+        card: "#ffffff",
+        border: "#e2e8f0",
+        muted: "#64748b"
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "sans-serif"]
+        sans: ["var(--font-inter)", "sans-serif"],
+        heading: ["var(--font-poppins)", "var(--font-inter)", "sans-serif"]
       },
       boxShadow: {
-        glow: "0 0 0 1px rgba(255,255,255,0.08), 0 24px 80px rgba(108,99,255,0.2)",
-        "glow-accent": "0 0 0 1px rgba(255,255,255,0.08), 0 18px 64px rgba(0,212,255,0.16)"
+        glow: "0 1px 3px rgba(15, 23, 42, 0.06), 0 14px 34px rgba(47, 128, 237, 0.08)",
+        "glow-accent": "0 2px 8px rgba(47, 128, 237, 0.18)"
       },
       backgroundImage: {
         "grid-fade":
-          "linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)"
+          "linear-gradient(rgba(15,23,42,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(15,23,42,0.04) 1px, transparent 1px)"
       }
     }
   },
@@ -29,4 +30,3 @@ const config: Config = {
 };
 
 export default config;
-
