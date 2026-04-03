@@ -12,7 +12,7 @@ export function LogoMark({ className, compact = false }: LogoMarkProps) {
         alt="Kamkimat logo"
         className={cn(
           "w-auto object-contain drop-shadow-[0_10px_24px_rgba(47,128,237,0.16)]",
-          compact ? "h-9 max-w-[190px]" : "h-12 max-w-[420px] sm:h-14"
+          compact ? "h-16 max-w-[360px] sm:h-20" : "h-24 max-w-[720px] sm:h-28"
         )}
         src="/kamkimat-logo.png"
       />
