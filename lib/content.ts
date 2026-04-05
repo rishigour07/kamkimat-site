@@ -124,7 +124,7 @@ const DEFAULT_SERVICES: EditableServiceItem[] = [
 
 export const DEFAULT_CONTENT: EditableSiteContent = {
   contact: {
-    email: "kamkimat67@gmail.com",
+    email: "contact@kamkimattechnologies.in",
     phone: "9111256684",
     address: "78 Vijay Nagar, Indore"
   },

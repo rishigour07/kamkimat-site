@@ -21,7 +21,7 @@ EMAILJS_TEMPLATE_ID="template_xxxxxxx"
 EMAILJS_CHATBOT_TEMPLATE_ID="template_chatbot_xxxxxxx"
 EMAILJS_PUBLIC_KEY="replace-with-emailjs-public-key"
 EMAILJS_PRIVATE_KEY="replace-with-emailjs-private-key"
-EMAILJS_TO_EMAIL="kamkimat67@gmail.com"
+EMAILJS_TO_EMAIL="contact@kamkimattechnologies.in"
 USE_OPENAI="false"
 ```
 
@@ -51,7 +51,7 @@ Open `http://localhost:3000`.
 - The contact form posts to `/api/contact`
 - The chatbot lead form posts to `/api/chatbot/lead`
 - Both contact and chatbot lead notifications use EmailJS
-- All submissions go to `kamkimat67@gmail.com`
+- All submissions go to `contact@kamkimattechnologies.in`
 
 ### EmailJS template params for inquiry form
 

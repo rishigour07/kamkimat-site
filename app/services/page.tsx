@@ -11,9 +11,19 @@ import { processSteps } from "@/lib/site";
 import { getSiteContentData } from "@/lib/site-content";
 
 export const metadata: Metadata = {
-  title: "Services",
+  title: "IT Services | Custom Software, SaaS, AI Automation and Chatbot Development",
   description:
-    "Explore Kamkimat services across custom SaaS development, AI automation, chatbots, web apps, workflow integration, and consulting."
+    "Explore Kamkimat IT services: custom SaaS development, AI automation, chatbot development, workflow integration, web apps, and software consulting.",
+  keywords: [
+    "IT services company",
+    "custom software services",
+    "AI automation services",
+    "chatbot development services",
+    "workflow integration services"
+  ],
+  alternates: {
+    canonical: "/services"
+  }
 };
 
 export const dynamic = "force-dynamic";

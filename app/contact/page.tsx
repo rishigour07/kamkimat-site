@@ -11,9 +11,18 @@ import { contactReasons, faqs } from "@/lib/site";
 import { getSiteContentData } from "@/lib/site-content";
 
 export const metadata: Metadata = {
-  title: "Contact",
+  title: "Contact Kamkimat | IT Service Company for Software and AI Projects",
   description:
-    "Get in touch with Kamkimat for custom SaaS development, AI automation, chatbot projects, workflow integration, and software consulting."
+    "Contact Kamkimat to discuss custom software development, AI automation, chatbot projects, and IT consulting. Share your requirements and get a project response.",
+  keywords: [
+    "contact IT service company",
+    "software development consultation",
+    "AI automation consultation",
+    "book software project call"
+  ],
+  alternates: {
+    canonical: "/contact"
+  }
 };
 
 export const dynamic = "force-dynamic";

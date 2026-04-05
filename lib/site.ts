@@ -81,7 +81,7 @@ export function mapServicesWithIcons(
 
 export const siteConfig = {
   name: "Kamkimat",
-  email: "kamkimat67@gmail.com",
+  email: "contact@kamkimattechnologies.in",
   phone: "9111256684",
   address: "78 Vijay Nagar, Indore",
   domain: "www.kamkimat.com",

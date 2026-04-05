@@ -10,9 +10,12 @@ import { SectionShell } from "@/components/ui/section-shell";
 import { caseStudies, insightPoints } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Portfolio",
+  title: "Portfolio | Software and AI Automation Case Studies",
   description:
-    "Explore representative Kamkimat case studies across AI automation, SaaS systems, workflow integration, and premium web software."
+    "Explore Kamkimat case studies across AI automation, SaaS systems, workflow integration, and high-performance web software projects.",
+  alternates: {
+    canonical: "/portfolio"
+  }
 };
 
 export default function PortfolioPage() {

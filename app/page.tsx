@@ -25,9 +25,20 @@ import {
 } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Premium AI Software Systems",
+  title: "IT Service Company for Custom Software, SaaS and AI Automation",
   description:
-    "From custom SaaS to AI automation, Kamkimat helps businesses move faster, reduce costs, and grow smarter."
+    "Kamkimat Technologies is an IT service company helping startups and businesses with custom software development, AI automation, chatbot systems, and SaaS products.",
+  keywords: [
+    "IT service company",
+    "custom software development company",
+    "AI automation company",
+    "SaaS development services",
+    "chatbot development company",
+    "web application development"
+  ],
+  alternates: {
+    canonical: "/"
+  }
 };
 
 type IconCardProps = {

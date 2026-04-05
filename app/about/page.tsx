@@ -10,9 +10,12 @@ import { getVisibleFounders } from "@/lib/founders";
 import { getSiteContentData } from "@/lib/site-content";
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "About Kamkimat Technologies | AI and Software Development Company",
   description:
-    "Learn how Kamkimat helps businesses automate, scale, and grow with premium AI-powered software systems."
+    "Learn about Kamkimat Technologies, an IT service company focused on AI-powered software systems, automation, and scalable product development.",
+  alternates: {
+    canonical: "/about"
+  }
 };
 
 export const dynamic = "force-dynamic";

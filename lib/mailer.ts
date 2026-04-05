@@ -1,4 +1,4 @@
-const CONTACT_DESTINATION = "kamkimat67@gmail.com";
+const CONTACT_DESTINATION = "contact@kamkimattechnologies.in";
 const EMAILJS_ENDPOINT = "https://api.emailjs.com/api/v1.0/email/send";
 
 export class EmailDeliveryError extends Error {
