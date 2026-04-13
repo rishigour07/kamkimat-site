@@ -9,7 +9,7 @@ import { getSiteContentData } from "@/lib/site-content";
 
 import "./globals.css";
 
-const siteUrl = `https://${siteConfig.domain}`;
+const siteUrl = `https://${siteConfig.domain}`
 const logoUrl = `${siteUrl}/kamkimat-logo.png`;
 
 const organizationSchema = {
@@ -82,9 +82,9 @@ export const metadata: Metadata = {
     canonical: "/"
   },
   icons: {
-    icon: "/kamkimat-logo.png",
-    shortcut: "/kamkimat-logo.png",
-    apple: "/kamkimat-logo.png"
+    icon: "/favicon.jpeg",
+    shortcut: "/favicon.jpeg",
+    apple: "/favicon.jpeg"
   },
   keywords: [
     "Kamkimat",
