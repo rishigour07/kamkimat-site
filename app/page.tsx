@@ -8,11 +8,15 @@ import {
 } from "lucide-react";
 
 import { ButtonLink } from "@/components/ui/button-link";
+import { CinematicSection } from "@/components/ui/cinematic-section";
 import { FadeIn } from "@/components/ui/fade-in";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
+import { GlowButton } from "@/components/ui/glow-button";
 import { GlowCard } from "@/components/ui/glow-card";
+import { HeroSection } from "@/components/ui/hero-section";
 import { SectionIntro } from "@/components/ui/section-intro";
-import { SectionShell } from "@/components/ui/section-shell";
+import { TiltCard } from "@/components/ui/tilt-card";
+import { TextReveal } from "@/components/ui/text-reveal";
 import { getSiteContentData } from "@/lib/site-content";
 import {
   aiSolutions,
@@ -49,13 +53,13 @@ type IconCardProps = {
 
 function IconCard({ icon: Icon, title, description }: IconCardProps) {
   return (
-    <GlowCard className="h-full">
-      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-primary">
+    <TiltCard className="h-full">
+      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400">
         <Icon className="h-5 w-5" />
       </div>
-      <h3 className="mt-5 text-xl font-semibold text-slate-800">{title}</h3>
-      <p className="mt-3 text-sm leading-7 text-slate-600">{description}</p>
-    </GlowCard>
+      <h3 className="mt-5 text-xl font-semibold text-slate-100">{title}</h3>
+      <p className="mt-3 text-sm leading-7 text-slate-400">{description}</p>
+    </TiltCard>
   );
 }
 
@@ -66,70 +70,26 @@ export default async function HomePage() {
 
   return (
     <>
-      <SectionShell className="pt-28 sm:pt-32 lg:pt-36">
-        <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr]">
-          <FadeIn>
-            <div className="max-w-3xl">
-              <div className="eyebrow">{content.home.eyebrow}</div>
-              <h1 className="mt-7 text-4xl font-semibold leading-tight tracking-tight text-slate-800 sm:text-5xl lg:text-6xl">
-                {content.home.headline}
-              </h1>
-              <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl">
-                {content.home.description}
-              </p>
-              <div className="mt-8 flex flex-wrap gap-4">
-                <ButtonLink href="/contact">Get Started</ButtonLink>
-                <ButtonLink href={`mailto:${siteConfig.email}`} variant="secondary">
-                  Book a Call
-                </ButtonLink>
-              </div>
-              <div className="mt-8 flex flex-wrap gap-3">
-                {content.home.highlights.map((highlight) => (
-                  <div className="metric-chip" key={highlight}>
-                    {highlight}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </FadeIn>
-          <FadeIn delay={0.12}>
-            <GlowCard>
-              <div className="text-sm font-semibold uppercase tracking-[0.15em] text-primary">
-                Why teams choose Kamkimat
-              </div>
-              <h2 className="mt-4 text-2xl font-semibold text-slate-800">Built for practical growth</h2>
-              <div className="mt-6 space-y-4">
-                {[
-                  "Clear project scoping and realistic timelines",
-                  "Business-first product and automation decisions",
-                  "Maintainable systems your team can actually run"
-                ].map((item) => (
-                  <div className="flex items-start gap-3" key={item}>
-                    <CircleCheck className="mt-0.5 h-5 w-5 text-primary" />
-                    <p className="text-sm leading-7 text-slate-600">{item}</p>
-                  </div>
-                ))}
-              </div>
-            </GlowCard>
-          </FadeIn>
-        </div>
-      </SectionShell>
+      {/* Hero Section with particles */}
+      <HeroSection content={content} siteConfig={siteConfig} />
 
-      <SectionShell>
+      {/* Stats Section */}
+      <CinematicSection>
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           {stats.map((stat, index) => (
             <FadeIn delay={index * 0.06} key={stat.label}>
-              <GlowCard className="h-full">
-                <div className="text-4xl font-semibold text-slate-800">{stat.value}</div>
-                <div className="mt-2 text-lg font-medium text-slate-800">{stat.label}</div>
-                <p className="mt-2 text-sm leading-7 text-slate-600">{stat.detail}</p>
-              </GlowCard>
+              <TiltCard className="h-full">
+                <div className="text-4xl font-semibold text-gradient">{stat.value}</div>
+                <div className="mt-2 text-lg font-medium text-slate-200">{stat.label}</div>
+                <p className="mt-2 text-sm leading-7 text-slate-400">{stat.detail}</p>
+              </TiltCard>
             </FadeIn>
           ))}
         </div>
-      </SectionShell>
+      </CinematicSection>
 
-      <SectionShell id="services">
+      {/* Services Section */}
+      <CinematicSection id="services">
         <SectionIntro
           eyebrow="Core Services"
           title="High-value product, AI, and automation capabilities in one delivery partner"
@@ -141,28 +101,29 @@ export default async function HomePage() {
 
             return (
               <FadeIn delay={index * 0.05} key={service.title}>
-                <GlowCard className="h-full">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-primary">
+                <TiltCard className="h-full">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400">
                     <Icon className="h-5 w-5" />
                   </div>
-                  <h3 className="mt-6 text-xl font-semibold text-slate-800">{service.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-600">{service.description}</p>
+                  <h3 className="mt-6 text-xl font-semibold text-slate-100">{service.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-400">{service.description}</p>
                   <div className="mt-6 space-y-3">
                     {service.points.map((point) => (
-                      <div className="flex items-center gap-3 text-sm text-slate-600" key={point}>
-                        <Check className="h-4 w-4 text-primary" />
+                      <div className="flex items-center gap-3 text-sm text-slate-400" key={point}>
+                        <Check className="h-4 w-4 text-blue-400" />
                         {point}
                       </div>
                     ))}
                   </div>
-                </GlowCard>
+                </TiltCard>
               </FadeIn>
             );
           })}
         </div>
-      </SectionShell>
+      </CinematicSection>
 
-      <SectionShell>
+      {/* Why Kamkimat */}
+      <CinematicSection fadeDirection="left">
         <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
           <FadeIn>
             <SectionIntro
@@ -179,9 +140,10 @@ export default async function HomePage() {
             ))}
           </div>
         </div>
-      </SectionShell>
+      </CinematicSection>
 
-      <SectionShell>
+      {/* Process Steps */}
+      <CinematicSection>
         <SectionIntro
           align="center"
           eyebrow="Delivery Process"
@@ -194,23 +156,24 @@ export default async function HomePage() {
 
             return (
               <FadeIn delay={index * 0.08} key={step.title}>
-                <GlowCard className="h-full">
+                <TiltCard className="h-full">
                   <div className="flex items-center justify-between gap-4">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-primary">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400">
                       <Icon className="h-5 w-5" />
                     </div>
-                    <div className="text-sm font-semibold text-slate-400">0{index + 1}</div>
+                    <div className="text-sm font-semibold text-slate-600">0{index + 1}</div>
                   </div>
-                  <h3 className="mt-6 text-xl font-semibold text-slate-800">{step.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-600">{step.description}</p>
-                </GlowCard>
+                  <h3 className="mt-6 text-xl font-semibold text-slate-100">{step.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-400">{step.description}</p>
+                </TiltCard>
               </FadeIn>
             );
           })}
         </div>
-      </SectionShell>
+      </CinematicSection>
 
-      <SectionShell>
+      {/* AI Solutions */}
+      <CinematicSection fadeDirection="right">
         <div className="grid gap-10 lg:grid-cols-[1fr_1fr]">
           <FadeIn>
             <SectionIntro
@@ -221,14 +184,14 @@ export default async function HomePage() {
           </FadeIn>
           <FadeIn delay={0.1}>
             <GlowCard className="h-full">
-              <div className="text-sm font-semibold uppercase tracking-[0.15em] text-primary">
+              <div className="text-sm font-semibold uppercase tracking-[0.15em] text-blue-400">
                 What premium teams want
               </div>
               <div className="mt-4 space-y-4">
                 {insightPoints.map((point) => (
-                  <div className="rounded-xl border border-slate-200 bg-slate-50 p-4" key={point.title}>
-                    <div className="text-base font-medium text-slate-800">{point.title}</div>
-                    <p className="mt-2 text-sm leading-7 text-slate-600">{point.description}</p>
+                  <div className="rounded-xl border border-white/[0.06] bg-slate-800/40 p-4" key={point.title}>
+                    <div className="text-base font-medium text-slate-200">{point.title}</div>
+                    <p className="mt-2 text-sm leading-7 text-slate-400">{point.description}</p>
                   </div>
                 ))}
               </div>
@@ -246,9 +209,10 @@ export default async function HomePage() {
             </FadeIn>
           ))}
         </div>
-      </SectionShell>
+      </CinematicSection>
 
-      <SectionShell>
+      {/* Testimonials */}
+      <CinematicSection>
         <SectionIntro
           align="center"
           eyebrow="What Serious Teams Look For"
@@ -258,20 +222,21 @@ export default async function HomePage() {
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
           {testimonialThemes.map((item, index) => (
             <FadeIn delay={index * 0.08} key={item.person}>
-              <GlowCard className="h-full">
-                <MessageSquareQuote className="h-8 w-8 text-primary" />
-                <p className="mt-6 text-lg leading-8 text-slate-700">&ldquo;{item.quote}&rdquo;</p>
+              <TiltCard className="h-full">
+                <MessageSquareQuote className="h-8 w-8 text-blue-400" />
+                <p className="mt-6 text-lg leading-8 text-slate-300">&ldquo;{item.quote}&rdquo;</p>
                 <div className="mt-8">
-                  <div className="text-base font-semibold text-slate-800">{item.person}</div>
+                  <div className="text-base font-semibold text-slate-200">{item.person}</div>
                   <div className="text-sm text-slate-500">{item.role}</div>
                 </div>
-              </GlowCard>
+              </TiltCard>
             </FadeIn>
           ))}
         </div>
-      </SectionShell>
+      </CinematicSection>
 
-      <SectionShell id="faq">
+      {/* FAQ */}
+      <CinematicSection id="faq">
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
           <FadeIn>
             <SectionIntro
@@ -284,32 +249,38 @@ export default async function HomePage() {
             <FaqAccordion items={faqs} />
           </FadeIn>
         </div>
-      </SectionShell>
+      </CinematicSection>
 
-      <SectionShell className="pb-24 sm:pb-28">
+      {/* CTA Banner */}
+      <CinematicSection className="pb-24 sm:pb-28">
         <FadeIn>
-          <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white px-6 py-10 shadow-[0_8px_28px_rgba(15,23,42,0.08)] sm:px-10 sm:py-12 lg:px-12">
+          <div className="relative overflow-hidden rounded-3xl border border-white/[0.08] bg-slate-900/60 px-6 py-10 shadow-glow backdrop-blur-xl sm:px-10 sm:py-12 lg:px-12">
+            {/* Gradient glow background */}
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-blue-500/[0.08] via-transparent to-blue-400/[0.06]" />
             <div className="relative flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
               <div className="max-w-3xl">
                 <div className="eyebrow">Ready To Build</div>
-                <h2 className="mt-5 text-3xl font-semibold tracking-tight text-slate-800 sm:text-4xl lg:text-5xl">
+                <TextReveal
+                  tag="h2"
+                  className="mt-5 text-3xl font-semibold tracking-tight text-slate-100 sm:text-4xl lg:text-5xl"
+                >
                   {content.home.ctaTitle}
-                </h2>
-                <p className="mt-4 text-base leading-8 text-slate-600 sm:text-lg">
+                </TextReveal>
+                <p className="mt-4 text-base leading-8 text-slate-400 sm:text-lg">
                   {content.home.ctaDescription}
                 </p>
               </div>
               <div className="flex flex-wrap gap-4">
-                <ButtonLink href="/contact">Get Started</ButtonLink>
-                <ButtonLink href="/portfolio" variant="secondary">
+                <GlowButton href="/contact">Get Started</GlowButton>
+                <GlowButton href="/portfolio" variant="secondary">
                   View Portfolio
                   <ArrowRight className="ml-2 h-4 w-4" />
-                </ButtonLink>
+                </GlowButton>
               </div>
             </div>
           </div>
         </FadeIn>
-      </SectionShell>
+      </CinematicSection>
     </>
   );
 }

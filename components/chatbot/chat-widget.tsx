@@ -261,26 +261,26 @@ export function ChatWidget({ contactPhone }: ChatWidgetProps) {
             initial={{ opacity: 0, y: 24, scale: 0.96 }}
             transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_12px_36px_rgba(15,23,42,0.12)]">
-              <div className="relative border-b border-slate-200 px-5 py-4">
+            <div className="overflow-hidden rounded-2xl border border-white/[0.08] bg-slate-950/95 shadow-[0_12px_36px_rgba(0,0,0,0.4)] backdrop-blur-xl">
+              <div className="relative border-b border-white/[0.06] px-5 py-4">
                 <div className="relative flex items-start justify-between gap-4">
                   <div className="flex items-start gap-3">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-primary">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400">
                       <Bot className="h-5 w-5" />
                     </div>
                     <div>
-                      <div className="text-sm font-semibold uppercase tracking-[0.14em] text-primary">
+                      <div className="text-sm font-semibold uppercase tracking-[0.14em] text-blue-400">
                         AI Sales Assistant
                       </div>
-                      <h2 className="mt-1 text-lg font-semibold text-slate-800">Kamkimat AI Assistant</h2>
-                      <p className="mt-1 text-sm leading-6 text-slate-600">
+                      <h2 className="mt-1 text-lg font-semibold text-slate-100">Kamkimat AI Assistant</h2>
+                      <p className="mt-1 text-sm leading-6 text-slate-400">
                         Ask about AI systems, SaaS builds, or share a project brief.
                       </p>
                     </div>
                   </div>
                   <button
                     aria-label="Close chatbot"
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition duration-200 hover:bg-slate-100 hover:text-slate-800"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.08] bg-slate-800/60 text-slate-400 transition duration-200 hover:bg-slate-700 hover:text-white"
                     onClick={() => setIsOpen(false)}
                     type="button"
                   >
@@ -303,8 +303,8 @@ export function ChatWidget({ contactPhone }: ChatWidgetProps) {
                         className={cn(
                           "max-w-[88%] rounded-[24px] px-4 py-3 text-sm leading-7 shadow-lg",
                           message.role === "assistant"
-                            ? "border border-slate-200 bg-slate-50 text-slate-700"
-                            : "bg-primary text-white"
+                            ? "border border-white/[0.06] bg-slate-800/60 text-slate-300"
+                            : "bg-primary text-white shadow-glow"
                         )}
                       >
                         {message.content}
@@ -315,13 +315,13 @@ export function ChatWidget({ contactPhone }: ChatWidgetProps) {
                   {userMessageCount <= 1 ? (
                     <div className="space-y-3">
                       <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
-                        <Sparkles className="h-4 w-4 text-accent" />
+                        <Sparkles className="h-4 w-4 text-blue-400" />
                         Quick actions
                       </div>
                       <div className="flex flex-wrap gap-2">
                         {chatbotQuickActions.map((action) => (
                           <button
-                            className="rounded-full border border-slate-200 bg-white px-4 py-2 text-left text-sm text-slate-700 transition duration-200 hover:border-blue-200 hover:bg-blue-50 hover:text-slate-800"
+                            className="rounded-full border border-white/[0.08] bg-slate-800/60 px-4 py-2 text-left text-sm text-slate-300 transition duration-200 hover:border-blue-500/20 hover:bg-slate-700 hover:text-white"
                             key={action.label}
                             onClick={() => void handleSend(action.message)}
                             type="button"
@@ -335,7 +335,7 @@ export function ChatWidget({ contactPhone }: ChatWidgetProps) {
 
                   {isLoading ? (
                     <div className="flex justify-start">
-                      <div className="inline-flex items-center gap-2 rounded-[24px] border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600">
+                      <div className="inline-flex items-center gap-2 rounded-[24px] border border-white/[0.06] bg-slate-800/60 px-4 py-3 text-sm text-slate-400">
                         <span className="h-2 w-2 animate-pulse rounded-full bg-accent" />
                         <span className="h-2 w-2 animate-pulse rounded-full bg-accent [animation-delay:120ms]" />
                         <span className="h-2 w-2 animate-pulse rounded-full bg-accent [animation-delay:240ms]" />
@@ -346,20 +346,20 @@ export function ChatWidget({ contactPhone }: ChatWidgetProps) {
                   <div ref={scrollAnchorRef} />
                 </div>
 
-                <div className="border-t border-slate-200 bg-slate-50 px-5 py-4">
+                <div className="border-t border-white/[0.06] bg-slate-900/80 px-5 py-4">
                   {!leadSubmitted ? (
-                    <div className="rounded-[24px] border border-slate-200 bg-white p-4">
+                    <div className="rounded-[24px] border border-white/[0.08] bg-slate-800/60 p-4">
                       <div className="flex items-start justify-between gap-4">
                         <div>
-                          <div className="text-sm font-semibold text-slate-800">
+                          <div className="text-sm font-semibold text-slate-200">
                             Want Kamkimat to follow up?
                           </div>
-                          <p className="mt-1 text-sm leading-6 text-slate-600">
+                          <p className="mt-1 text-sm leading-6 text-slate-400">
                             Share your details and project requirement. Phone is optional.
                           </p>
                         </div>
                         <button
-                          className="rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-600 transition duration-200 hover:border-blue-200 hover:text-slate-800"
+                          className="rounded-full border border-white/[0.08] bg-slate-800/60 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-400 transition duration-200 hover:border-blue-500/20 hover:text-white"
                           onClick={() => setLeadOpen((current) => !current)}
                           type="button"
                         >
@@ -379,7 +379,7 @@ export function ChatWidget({ contactPhone }: ChatWidgetProps) {
                             <div className="mt-4 grid gap-3">
                               <div className="grid gap-3 sm:grid-cols-2">
                                 <input
-                                  className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition duration-200 placeholder:text-slate-400 focus:border-primary"
+                                  className="w-full rounded-xl border border-white/[0.08] bg-slate-800/60 px-4 py-3 text-sm text-slate-200 outline-none transition duration-200 placeholder:text-slate-500 focus:border-blue-500/50"
                                   onChange={(event) => handleLeadChange("name", event.target.value)}
                                   placeholder="Your name"
                                   value={leadValues.name}
@@ -409,12 +409,12 @@ export function ChatWidget({ contactPhone }: ChatWidgetProps) {
                                 value={leadValues.projectRequirement}
                               />
                               {leadError ? (
-                                <div className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+                                <div className="rounded-xl border border-rose-500/30 bg-rose-500/10 px-4 py-3 text-sm text-rose-300">
                                   {leadError}
                                 </div>
                               ) : null}
                               <button
-                                className="button-primary inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold transition duration-200 hover:bg-[#1f6fd6] disabled:cursor-not-allowed disabled:opacity-60"
+                                className="glow-cta button-primary inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold transition-all duration-300 hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-60"
                                 disabled={isSavingLead}
                                 onClick={() => void handleLeadSubmit()}
                                 type="button"
@@ -427,17 +427,17 @@ export function ChatWidget({ contactPhone }: ChatWidgetProps) {
                       </AnimatePresence>
                     </div>
                   ) : (
-                    <div className="rounded-[24px] border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+                    <div className="rounded-[24px] border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-300">
                       <div className="flex items-center gap-2 font-medium">
                         <CheckCircle2 className="h-4 w-4" />
                         Project lead captured
                       </div>
-                      <p className="mt-1 leading-6 text-emerald-700/85">
+                      <p className="mt-1 leading-6 text-emerald-300/85">
                         Kamkimat has your details and can follow up from here.
                       </p>
                       {submittedLeadType === "hot" ? (
                         <a
-                          className="mt-4 inline-flex items-center justify-center rounded-full border border-emerald-300 bg-emerald-100 px-4 py-2 text-sm font-semibold text-emerald-800 transition duration-200 hover:bg-emerald-200"
+                          className="mt-4 inline-flex items-center justify-center rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-2 text-sm font-semibold text-emerald-300 transition duration-200 hover:bg-emerald-500/20"
                           href={whatsappLink}
                           rel="noreferrer"
                           target="_blank"
@@ -452,7 +452,7 @@ export function ChatWidget({ contactPhone }: ChatWidgetProps) {
                   <div className="mt-4">
                     <div className="flex items-end gap-3">
                       <textarea
-                        className="min-h-[52px] flex-1 resize-none rounded-[24px] border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition duration-200 placeholder:text-slate-400 focus:border-primary"
+                        className="min-h-[52px] flex-1 resize-none rounded-[24px] border border-white/[0.08] bg-slate-800/60 px-4 py-3 text-sm text-slate-200 outline-none transition duration-200 placeholder:text-slate-500 focus:border-blue-500/50"
                         onChange={(event) => setDraft(event.target.value)}
                         onKeyDown={(event) => {
                           if (event.key === "Enter" && !event.shiftKey) {
@@ -466,7 +466,7 @@ export function ChatWidget({ contactPhone }: ChatWidgetProps) {
                       />
                       <button
                         aria-label="Send message"
-                        className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white transition duration-200 hover:bg-[#1f6fd6] disabled:cursor-not-allowed disabled:opacity-60"
+                        className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white shadow-glow transition duration-200 hover:bg-blue-500 hover:shadow-glow-strong disabled:cursor-not-allowed disabled:opacity-60"
                         disabled={isLoading || !draft.trim()}
                         onClick={() => void handleSend(draft)}
                         type="button"
@@ -475,7 +475,7 @@ export function ChatWidget({ contactPhone }: ChatWidgetProps) {
                       </button>
                     </div>
                     {error ? (
-                      <div className="mt-3 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+                      <div className="mt-3 rounded-2xl border border-rose-500/30 bg-rose-500/10 px-4 py-3 text-sm text-rose-300">
                         {error}
                       </div>
                     ) : null}
@@ -490,7 +490,7 @@ export function ChatWidget({ contactPhone }: ChatWidgetProps) {
       <motion.button
         animate={{ scale: isOpen ? 0.96 : 1 }}
         aria-label={isOpen ? "Close chatbot" : "Open Kamkimat AI Assistant"}
-        className="fixed bottom-4 right-4 z-50 inline-flex h-16 w-16 items-center justify-center rounded-full border border-blue-200 bg-primary text-white shadow-[0_12px_28px_rgba(47,128,237,0.35)] transition duration-200 hover:bg-[#1f6fd6] sm:bottom-6 sm:right-6"
+        className="fixed bottom-4 right-4 z-50 inline-flex h-16 w-16 items-center justify-center rounded-full border border-blue-500/30 bg-primary text-white shadow-glow-strong transition duration-200 hover:bg-blue-500 sm:bottom-6 sm:right-6"
         onClick={() => setIsOpen((current) => !current)}
         transition={{ duration: 0.2 }}
         type="button"

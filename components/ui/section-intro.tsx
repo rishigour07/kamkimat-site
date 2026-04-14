@@ -24,11 +24,10 @@ export function SectionIntro({
       )}
     >
       {eyebrow ? <div className="eyebrow">{eyebrow}</div> : null}
-      <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-800 sm:text-4xl lg:text-5xl">
+      <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-100 sm:text-4xl lg:text-5xl">
         {title}
       </h2>
-      <p className="mt-4 text-base leading-8 text-slate-600 sm:text-lg">{description}</p>
+      <p className="mt-4 text-base leading-8 text-slate-400 sm:text-lg">{description}</p>
     </div>
   );
 }
-

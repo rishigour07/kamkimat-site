@@ -1,5 +1,8 @@
+"use client";
+
 import { ButtonLink } from "@/components/ui/button-link";
 import { SectionShell } from "@/components/ui/section-shell";
+import { ParticleField } from "@/components/ui/particle-field";
 import { cn } from "@/lib/utils";
 
 type PageHeroProps = {
@@ -23,13 +26,19 @@ export function PageHero({
 }: PageHeroProps) {
   return (
     <SectionShell className={cn("pt-28 sm:pt-32", className)}>
-      <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white px-6 py-12 shadow-[0_4px_20px_rgba(15,23,42,0.06)] sm:px-10 sm:py-16 lg:px-14">
+      <div className="relative overflow-hidden rounded-3xl border border-white/[0.08] bg-slate-900/60 px-6 py-12 shadow-glass backdrop-blur-xl sm:px-10 sm:py-16 lg:px-14">
+        {/* Particle background */}
+        <div className="absolute inset-0 overflow-hidden rounded-3xl">
+          <ParticleField particleCount={40} connectDistance={80} />
+        </div>
+        {/* Gradient overlays */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-blue-500/[0.06] via-transparent to-transparent" />
         <div className="relative max-w-4xl">
           <div className="eyebrow">{eyebrow}</div>
-          <h1 className="mt-6 text-4xl font-semibold tracking-tight text-slate-800 sm:text-5xl lg:text-6xl">
+          <h1 className="mt-6 text-4xl font-semibold tracking-tight text-slate-100 sm:text-5xl lg:text-6xl">
             {title}
           </h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600">{description}</p>
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-400">{description}</p>
           {(primaryCta || secondaryCta) && (
             <div className="mt-8 flex flex-wrap gap-4">
               {primaryCta ? <ButtonLink href={primaryCta.href}>{primaryCta.label}</ButtonLink> : null}
@@ -46,4 +55,3 @@ export function PageHero({
     </SectionShell>
   );
 }
-

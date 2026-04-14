@@ -3,14 +3,16 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light;
-  --background: #f8fafc;
-  --surface: #ffffff;
-  --surface-soft: #f1f5f9;
-  --primary: #2f80ed;
-  --accent: #56a6ff;
-  --text: #1f2937;
-  --text-secondary: #64748b;
+  color-scheme: dark;
+  --background: #0a0f1c;
+  --background-alt: #0f172a;
+  --surface: #111827;
+  --surface-light: #1e293b;
+  --primary: #3b82f6;
+  --accent: #60a5fa;
+  --accent-glow: #93c5fd;
+  --text: #e2e8f0;
+  --text-secondary: #94a3b8;
 }
 
 html {
@@ -23,45 +25,47 @@ body {
   color: var(--text);
 }
 
+/* Ambient background glow — subtle, professional */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: -1;
-  background-image: linear-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
-  background-size: 72px 72px;
-  mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 1), transparent 88%);
-  opacity: 0.45;
+  z-index: -2;
+  background:
+    radial-gradient(ellipse 70% 50% at 20% 0%, rgba(59, 130, 246, 0.06), transparent 50%),
+    radial-gradient(ellipse 50% 40% at 80% 10%, rgba(59, 130, 246, 0.04), transparent 40%),
+    radial-gradient(ellipse 50% 40% at 50% 100%, rgba(59, 130, 246, 0.03), transparent 50%);
 }
 
+/* Subtle grid overlay */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: -2;
-  background: radial-gradient(circle at 18% 0%, rgba(47, 128, 237, 0.08), transparent 42%),
-    radial-gradient(circle at 88% 10%, rgba(86, 166, 255, 0.1), transparent 36%);
-  filter: blur(48px);
+  z-index: -1;
+  background-image: linear-gradient(rgba(148, 163, 184, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.02) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.5), transparent 80%);
 }
 
 ::selection {
-  background: rgba(47, 128, 237, 0.22);
-  color: #0f172a;
+  background: rgba(59, 130, 246, 0.35);
+  color: #f1f5f9;
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #e2e8f0;
+  background: #0f172a;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgba(47, 128, 237, 0.8), rgba(86, 166, 255, 0.9));
+  background: linear-gradient(180deg, rgba(59, 130, 246, 0.4), rgba(59, 130, 246, 0.6));
   border-radius: 999px;
 }
 
@@ -85,32 +89,120 @@ textarea {
   h5,
   h6 {
     font-family: var(--font-poppins), var(--font-inter), sans-serif;
-    @apply text-slate-800;
+    @apply text-slate-100;
   }
 }
 
 @layer components {
   .eyebrow {
-    @apply inline-flex items-center rounded-full border border-slate-200 bg-slate-100 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-600;
+    @apply inline-flex items-center rounded-full border border-blue-500/20 bg-blue-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-blue-400;
   }
 
   .button-primary {
-    @apply border border-primary bg-primary text-white;
+    @apply border border-primary bg-primary text-white shadow-glow;
   }
 
   .button-secondary {
-    @apply border border-slate-200 bg-white text-slate-700;
+    @apply border border-slate-700 bg-slate-800/60 text-slate-300 backdrop-blur;
   }
 
   .button-ghost {
-    @apply border border-transparent bg-transparent text-slate-600;
+    @apply border border-transparent bg-transparent text-slate-400;
   }
 
   .metric-chip {
-    @apply rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm text-slate-600;
+    @apply rounded-full border border-slate-700/50 bg-slate-800/50 px-4 py-2 text-sm text-slate-400;
   }
 
   .text-gradient {
-    @apply bg-[linear-gradient(90deg,#1f2937_0%,#2F80ED_100%)] bg-clip-text text-transparent;
+    @apply bg-[linear-gradient(90deg,#f1f5f9_0%,#3b82f6_50%,#60a5fa_100%)] bg-clip-text text-transparent;
   }
+
+  .glass-card {
+    @apply rounded-2xl border border-white/[0.08] bg-slate-900/60 p-6 shadow-glass backdrop-blur-xl;
+  }
+
+  .glow-border {
+    @apply border border-blue-500/20 transition-all duration-500 hover:border-blue-400/40 hover:shadow-glow;
+  }
+}
+
+/* Glow button animation — refined, no sweeping shine */
+.glow-cta {
+  position: relative;
+  overflow: hidden;
+}
+
+.glow-cta::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(96, 165, 250, 0.15), rgba(59, 130, 246, 0.3));
+  z-index: -1;
+  animation: glow-pulse 4s ease-in-out infinite;
+}
+
+/* Scroll-triggered reveal */
+.reveal-text {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-text.revealed {
+  clip-path: inset(0 0% 0 0);
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+/* ═══════════════════════════════════════════════════
+   Hero Section — Premium Clean Styles
+   ═══════════════════════════════════════════════════ */
+
+/* Hero heading — clean, no neon text-shadow */
+.hero-heading {
+  font-size: clamp(2.2rem, 5vw, 3.75rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #f1f5f9;
+}
+
+/* Metric chips — clean glassmorphism */
+.hero-metric-chip {
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #94a3b8;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 9999px;
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
+}
+
+.hero-metric-chip:hover {
+  border-color: rgba(59, 130, 246, 0.15);
+  color: #cbd5e1;
+}
+
+/* Info card — clean blue border, soft glow */
+.hero-info-card {
+  border-color: rgba(59, 130, 246, 0.1) !important;
+  background: rgba(10, 15, 28, 0.8) !important;
+  backdrop-filter: blur(20px) !important;
+  box-shadow:
+    0 0 30px rgba(59, 130, 246, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+  transition: all 0.4s ease !important;
+}
+
+.hero-info-card:hover {
+  border-color: rgba(59, 130, 246, 0.2) !important;
+  box-shadow:
+    0 0 40px rgba(59, 130, 246, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
 }

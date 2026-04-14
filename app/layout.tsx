@@ -4,12 +4,14 @@ import { Inter, Poppins } from "next/font/google";
 import { ChatWidget } from "@/components/chatbot/chat-widget";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
+import { GSAPProvider } from "@/components/ui/gsap-provider";
+import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { siteConfig } from "@/lib/site";
 import { getSiteContentData } from "@/lib/site-content";
 
 import "./globals.css";
 
-const siteUrl = `https://${siteConfig.domain}`
+const siteUrl = `https://${siteConfig.domain}`;
 const logoUrl = `${siteUrl}/kamkimat-logo.png`;
 
 const organizationSchema = {
@@ -142,7 +144,7 @@ export default async function RootLayout({
   const { siteConfig: liveSiteConfig } = await getSiteContentData();
 
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
         <script
           type="application/ld+json"
@@ -152,12 +154,15 @@ export default async function RootLayout({
         />
       </head>
       <body className={`${inter.variable} ${poppins.variable} bg-background`}>
-        <div className="relative min-h-screen overflow-x-hidden">
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-          <ChatWidget contactPhone={liveSiteConfig.phone} />
-        </div>
+        <GSAPProvider>
+          <div className="relative min-h-screen overflow-x-hidden">
+            <ScrollProgress />
+            <Navbar />
+            <main>{children}</main>
+            <Footer />
+            <ChatWidget contactPhone={liveSiteConfig.phone} />
+          </div>
+        </GSAPProvider>
       </body>
     </html>
   );

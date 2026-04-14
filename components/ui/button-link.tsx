@@ -11,10 +11,10 @@ type ButtonLinkProps = {
 
 const variants = {
   primary:
-    "button-primary hover:bg-[#1f6fd6]",
+    "button-primary hover:bg-blue-500 hover:shadow-glow-strong",
   secondary:
-    "button-secondary hover:border-slate-300 hover:bg-slate-50",
-  ghost: "button-ghost hover:bg-slate-100 hover:text-slate-700"
+    "button-secondary hover:border-slate-600 hover:bg-slate-700/60 hover:text-white",
+  ghost: "button-ghost hover:bg-slate-800 hover:text-slate-200"
 };
 
 export function ButtonLink({
@@ -24,7 +24,7 @@ export function ButtonLink({
   className
 }: ButtonLinkProps) {
   const classes = cn(
-    "inline-flex items-center justify-center rounded-xl px-6 py-3 text-sm font-semibold transition duration-200",
+    "inline-flex items-center justify-center rounded-xl px-6 py-3 text-sm font-semibold transition-all duration-300",
     variants[variant],
     className
   );

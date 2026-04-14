@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import { Mail, MapPin, Phone } from "lucide-react";
 
 import { ContactForm } from "@/components/contact/contact-form";
+import { CinematicSection } from "@/components/ui/cinematic-section";
 import { FadeIn } from "@/components/ui/fade-in";
 import { GlowCard } from "@/components/ui/glow-card";
 import { PageHero } from "@/components/ui/page-hero";
 import { SectionIntro } from "@/components/ui/section-intro";
-import { SectionShell } from "@/components/ui/section-shell";
+import { TiltCard } from "@/components/ui/tilt-card";
 import { contactReasons, faqs } from "@/lib/site";
 import { getSiteContentData } from "@/lib/site-content";
 
@@ -52,7 +53,7 @@ export default async function ContactPage() {
         title="Start a project conversation with Kamkimat"
       />
 
-      <SectionShell>
+      <CinematicSection>
         <div className="grid gap-8 xl:grid-cols-[1.1fr_0.9fr]">
           <FadeIn>
             <GlowCard className="h-full">
@@ -77,27 +78,27 @@ export default async function ContactPage() {
 
                       return item.href ? (
                         <a
-                          className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 transition duration-200 hover:border-slate-300 hover:text-slate-900"
+                          className="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-slate-800/40 px-4 py-3 text-sm text-slate-300 transition duration-200 hover:border-blue-500/20 hover:text-white"
                           href={item.href}
                           key={item.label}
                         >
-                          <Icon className="h-4 w-4 text-accent" />
-                          <span className="font-medium text-slate-800">{item.label}:</span>
+                          <Icon className="h-4 w-4 text-blue-400" />
+                          <span className="font-medium text-slate-200">{item.label}:</span>
                           {item.value}
                         </a>
                       ) : (
                         <div
-                          className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700"
+                          className="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-slate-800/40 px-4 py-3 text-sm text-slate-300"
                           key={item.label}
                         >
-                          <Icon className="h-4 w-4 text-accent" />
-                          <span className="font-medium text-slate-800">{item.label}:</span>
+                          <Icon className="h-4 w-4 text-blue-400" />
+                          <span className="font-medium text-slate-200">{item.label}:</span>
                           {item.value}
                         </div>
                       );
                     })}
                   </div>
-                <p className="mt-4 text-sm leading-7 text-slate-600">
+                <p className="mt-4 text-sm leading-7 text-slate-500">
                   Ideal for project scopes, AI automation opportunities, web app builds, and consulting requests.
                 </p>
               </GlowCard>
@@ -108,21 +109,21 @@ export default async function ContactPage() {
 
               return (
                 <FadeIn delay={0.12 + index * 0.06} key={reason.title}>
-                  <GlowCard>
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-primary">
+                  <TiltCard>
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400">
                       <Icon className="h-5 w-5" />
                     </div>
-                    <h3 className="mt-6 text-xl font-semibold text-slate-800">{reason.title}</h3>
-                    <p className="mt-3 text-sm leading-7 text-slate-600">{reason.description}</p>
-                  </GlowCard>
+                    <h3 className="mt-6 text-xl font-semibold text-slate-100">{reason.title}</h3>
+                    <p className="mt-3 text-sm leading-7 text-slate-400">{reason.description}</p>
+                  </TiltCard>
                 </FadeIn>
               );
             })}
           </div>
         </div>
-      </SectionShell>
+      </CinematicSection>
 
-      <SectionShell className="pb-24 sm:pb-28">
+      <CinematicSection className="pb-24 sm:pb-28">
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
           <FadeIn>
             <SectionIntro
@@ -135,14 +136,14 @@ export default async function ContactPage() {
             {faqs.slice(0, 3).map((item, index) => (
               <FadeIn delay={index * 0.05} key={item.question}>
                 <GlowCard>
-                  <h3 className="text-lg font-semibold text-slate-800">{item.question}</h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-600">{item.answer}</p>
+                  <h3 className="text-lg font-semibold text-slate-200">{item.question}</h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-400">{item.answer}</p>
                 </GlowCard>
               </FadeIn>
             ))}
           </div>
         </div>
-      </SectionShell>
+      </CinematicSection>
     </>
   );
 }

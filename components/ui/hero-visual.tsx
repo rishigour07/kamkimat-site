@@ -20,13 +20,18 @@ const pipelineItems = [
 
 export function HeroVisual() {
   return (
-    <div className="relative isolate mx-auto w-full max-w-[560px]">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(108,99,255,0.22),_transparent_52%),radial-gradient(circle_at_top_right,_rgba(0,212,255,0.18),_transparent_42%)] blur-3xl" />
+    <motion.div
+      className="relative isolate mx-auto w-full max-w-[560px]"
+      initial={{ opacity: 0, scale: 0.9, y: 30 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
+    >
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(59,130,246,0.25),_transparent_52%),radial-gradient(circle_at_top_right,_rgba(96,165,250,0.2),_transparent_42%)] blur-3xl" />
 
       {particles.map((particle) => (
         <motion.span
           animate={{ opacity: [0.25, 0.8, 0.3], y: [0, -18, 0] }}
-          className="absolute rounded-full bg-white/60 shadow-[0_0_24px_rgba(0,212,255,0.35)]"
+          className="absolute rounded-full bg-blue-400/60 shadow-[0_0_24px_rgba(96,165,250,0.4)]"
           key={`${particle.left}-${particle.top}`}
           style={{
             left: particle.left,
@@ -45,17 +50,17 @@ export function HeroVisual() {
 
       <motion.div
         animate={{ y: [0, -8, 0] }}
-        className="relative overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.06] p-6 shadow-glow backdrop-blur-2xl"
+        className="relative overflow-hidden rounded-[32px] border border-white/10 bg-slate-900/70 p-6 shadow-glow backdrop-blur-2xl"
         transition={{ duration: 9, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
       >
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(0,212,255,0.18),_transparent_34%),radial-gradient(circle_at_bottom,_rgba(108,99,255,0.24),_transparent_40%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.15),_transparent_34%),radial-gradient(circle_at_bottom,_rgba(96,165,250,0.2),_transparent_40%)]" />
         <div className="relative">
-          <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/20 px-4 py-3">
+          <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/30 px-4 py-3">
             <div>
               <div className="text-xs uppercase tracking-[0.28em] text-white/[0.45]">Kamkimat Engine</div>
               <div className="mt-1 text-lg font-semibold text-white">AI Operating Layer</div>
             </div>
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-accent/20 bg-accent/10 text-accent">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-blue-400/20 bg-blue-400/10 text-blue-400">
               <Sparkles className="h-5 w-5" />
             </div>
           </div>
@@ -85,7 +90,7 @@ export function HeroVisual() {
                         <div className="text-sm text-white/[0.55]">{item.value}</div>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2 text-sm font-medium text-accent">
+                    <div className="flex items-center gap-2 text-sm font-medium text-blue-400">
                       Active
                       <ArrowUpRight className="h-4 w-4" />
                     </div>
@@ -107,12 +112,12 @@ export function HeroVisual() {
               <div className="text-xs uppercase tracking-[0.24em] text-white/40">Signal quality</div>
               <div className="mt-3 flex items-end gap-2">
                 <span className="text-3xl font-semibold text-white">Premium</span>
-                <span className="pb-1 text-sm text-accent">UX + systems</span>
+                <span className="pb-1 text-sm text-blue-400">UX + systems</span>
               </div>
               <div className="mt-3 h-2 rounded-full bg-white/10">
                 <motion.div
                   animate={{ width: ["38%", "82%", "64%"] }}
-                  className="h-2 rounded-full bg-[linear-gradient(90deg,#6C63FF_0%,#00D4FF_100%)]"
+                  className="h-2 rounded-full bg-[linear-gradient(90deg,#3b82f6_0%,#60a5fa_100%)]"
                   transition={{ duration: 7, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
                 />
               </div>
@@ -123,13 +128,12 @@ export function HeroVisual() {
 
       <motion.div
         animate={{ y: [0, 10, 0], x: [0, -4, 0] }}
-        className="absolute -left-6 bottom-10 hidden rounded-2xl border border-white/10 bg-white/[0.07] px-4 py-3 shadow-glow backdrop-blur-xl sm:block"
+        className="absolute -left-6 bottom-10 hidden rounded-2xl border border-white/10 bg-slate-900/80 px-4 py-3 shadow-glow backdrop-blur-xl sm:block"
         transition={{ duration: 10, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
       >
         <div className="text-xs uppercase tracking-[0.24em] text-white/40">Live workflows</div>
         <div className="mt-1 text-sm font-semibold text-white">Automate ops without losing control</div>
       </motion.div>
-    </div>
+    </motion.div>
   );
 }
-

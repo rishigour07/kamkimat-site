@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 
 import { ButtonLink } from "@/components/ui/button-link";
+import { CinematicSection } from "@/components/ui/cinematic-section";
 import { FadeIn } from "@/components/ui/fade-in";
+import { GlowButton } from "@/components/ui/glow-button";
 import { GlowCard } from "@/components/ui/glow-card";
 import { PageHero } from "@/components/ui/page-hero";
 import { SectionIntro } from "@/components/ui/section-intro";
-import { SectionShell } from "@/components/ui/section-shell";
+import { TiltCard } from "@/components/ui/tilt-card";
 import { getVisibleFounders } from "@/lib/founders";
 import { getSiteContentData } from "@/lib/site-content";
 
@@ -34,13 +36,13 @@ export default async function AboutPage() {
         title={content.about.heroTitle}
       />
 
-      <SectionShell>
+      <CinematicSection>
         <div className="grid gap-6 lg:grid-cols-2">
           <FadeIn>
             <GlowCard className="h-full">
               <div className="eyebrow">Mission</div>
-              <h2 className="mt-6 text-3xl font-semibold text-slate-800">{content.about.missionTitle}</h2>
-              <p className="mt-4 text-base leading-8 text-slate-600">
+              <h2 className="mt-6 text-3xl font-semibold text-slate-100">{content.about.missionTitle}</h2>
+              <p className="mt-4 text-base leading-8 text-slate-400">
                 {content.about.missionDescription}
               </p>
             </GlowCard>
@@ -48,16 +50,16 @@ export default async function AboutPage() {
           <FadeIn delay={0.08}>
             <GlowCard className="h-full">
               <div className="eyebrow">Vision</div>
-              <h2 className="mt-6 text-3xl font-semibold text-slate-800">{content.about.visionTitle}</h2>
-              <p className="mt-4 text-base leading-8 text-slate-600">
+              <h2 className="mt-6 text-3xl font-semibold text-slate-100">{content.about.visionTitle}</h2>
+              <p className="mt-4 text-base leading-8 text-slate-400">
                 {content.about.visionDescription}
               </p>
             </GlowCard>
           </FadeIn>
         </div>
-      </SectionShell>
+      </CinematicSection>
 
-      <SectionShell>
+      <CinematicSection fadeDirection="left">
         <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
           <FadeIn>
             <SectionIntro
@@ -68,7 +70,7 @@ export default async function AboutPage() {
           </FadeIn>
           <FadeIn delay={0.08}>
             <GlowCard>
-              <div className="space-y-5 text-base leading-8 text-slate-600">
+              <div className="space-y-5 text-base leading-8 text-slate-400">
                 {content.about.storyParagraphs.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}
@@ -76,9 +78,9 @@ export default async function AboutPage() {
             </GlowCard>
           </FadeIn>
         </div>
-      </SectionShell>
+      </CinematicSection>
 
-      <SectionShell>
+      <CinematicSection>
         <SectionIntro
           align="center"
           eyebrow="Values"
@@ -88,17 +90,17 @@ export default async function AboutPage() {
         <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {aboutValues.map((value, index) => (
             <FadeIn delay={index * 0.06} key={value.title}>
-              <GlowCard className="h-full">
-                <h3 className="text-xl font-semibold text-slate-800">{value.title}</h3>
-                <p className="mt-4 text-sm leading-7 text-slate-600">{value.description}</p>
-              </GlowCard>
+              <TiltCard className="h-full">
+                <h3 className="text-xl font-semibold text-slate-100">{value.title}</h3>
+                <p className="mt-4 text-sm leading-7 text-slate-400">{value.description}</p>
+              </TiltCard>
             </FadeIn>
           ))}
         </div>
-      </SectionShell>
+      </CinematicSection>
 
       {founders.length > 0 ? (
-        <SectionShell>
+        <CinematicSection>
           <SectionIntro
             align="center"
             eyebrow="Founders"
@@ -113,20 +115,20 @@ export default async function AboutPage() {
                     {founder.photoData ? (
                         <img
                           alt={founder.name}
-                          className="h-32 w-32 rounded-3xl border border-slate-200 object-cover"
+                          className="h-32 w-32 rounded-3xl border border-white/[0.08] object-cover"
                           src={founder.photoData}
                         />
                       ) : (
-                        <div className="flex h-32 w-32 items-center justify-center rounded-3xl border border-dashed border-slate-300 bg-slate-50 text-sm text-slate-500">
+                        <div className="flex h-32 w-32 items-center justify-center rounded-3xl border border-dashed border-slate-600 bg-slate-800/50 text-sm text-slate-500">
                           No photo
                         </div>
                       )}
                       <div className="flex-1">
-                        <div className="text-sm font-semibold uppercase tracking-[0.15em] text-primary">
+                        <div className="text-sm font-semibold uppercase tracking-[0.15em] text-blue-400">
                           {founder.role}
                         </div>
-                        <h3 className="mt-3 text-2xl font-semibold text-slate-800">{founder.name}</h3>
-                        <p className="mt-4 text-sm leading-7 text-slate-600">
+                        <h3 className="mt-3 text-2xl font-semibold text-slate-100">{founder.name}</h3>
+                        <p className="mt-4 text-sm leading-7 text-slate-400">
                           {founder.description}
                         </p>
                       </div>
@@ -135,31 +137,33 @@ export default async function AboutPage() {
               </FadeIn>
             ))}
           </div>
-        </SectionShell>
+        </CinematicSection>
       ) : null}
 
-      <SectionShell className="pb-24 sm:pb-28">
+      <CinematicSection className="pb-24 sm:pb-28">
         <FadeIn>
-          <GlowCard className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-3xl">
-              <div className="eyebrow">Let&apos;s Build</div>
-              <h2 className="mt-5 text-3xl font-semibold text-slate-800 sm:text-4xl">
-                If the goal is better leverage, better systems are the next step
-              </h2>
-              <p className="mt-4 text-base leading-8 text-slate-600">
-                Kamkimat partners with ambitious teams that want premium product execution and practical AI systems, not surface-level hype.
-              </p>
+          <div className="relative overflow-hidden rounded-3xl border border-white/[0.08] bg-slate-900/60 p-6 shadow-glow backdrop-blur-xl sm:p-8 lg:p-10">
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-blue-500/[0.06] via-transparent to-blue-400/[0.04]" />
+            <div className="relative flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+              <div className="max-w-3xl">
+                <div className="eyebrow">Let&apos;s Build</div>
+                <h2 className="mt-5 text-3xl font-semibold text-slate-100 sm:text-4xl">
+                  If the goal is better leverage, better systems are the next step
+                </h2>
+                <p className="mt-4 text-base leading-8 text-slate-400">
+                  Kamkimat partners with ambitious teams that want premium product execution and practical AI systems, not surface-level hype.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-4">
+                <GlowButton href="/contact">Get Started</GlowButton>
+                <GlowButton href="/portfolio" variant="secondary">
+                  View Portfolio
+                </GlowButton>
+              </div>
             </div>
-            <div className="flex flex-wrap gap-4">
-              <ButtonLink href="/contact">Get Started</ButtonLink>
-              <ButtonLink href="/portfolio" variant="secondary">
-                View Portfolio
-              </ButtonLink>
-            </div>
-          </GlowCard>
+          </div>
         </FadeIn>
-      </SectionShell>
+      </CinematicSection>
     </>
   );
 }
-
